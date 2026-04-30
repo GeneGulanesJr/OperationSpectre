@@ -10,12 +10,6 @@ This index provides a comprehensive overview of all OperationSpectre documentati
 | [README.md](../README.md) | Main documentation with pi-based execution | All users | ✅ Updated |
 | [QUICK_START.md](QUICK_START.md) | Quick start guide with both CLI and CLI modes | New users | ✅ Updated |
 
-### Migration Documentation
-| Document | Description | Status |
-|----------|-------------|---------|
-| [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md) | Complete migration from old to new system | ✅ New |
-| scripts/migrate.py | Automated migration script | ✅ New |
-
 ### Tool-Specific Documentation
 | Document | Description | Status |
 |----------|-------------|---------|
@@ -33,14 +27,11 @@ This index provides a comprehensive overview of all OperationSpectre documentati
 
 ### For New Users
 1. **Start Here**: [QUICK_START.md](QUICK_START.md) - Choose between CLI and CLI modes
-2. **Migration**: [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md) - If coming from old system
-4. **Automated Workflows**: [PIPELINES.md](PIPELINES.md) - Multi-step security pipelines
+3. **Automated Workflows**: [PIPELINES.md](PIPELINES.md) - Multi-step security pipelines
 
 ### For System Administrators
-2. **Migration Script**: [scripts/migrate.py](../scripts/migrate.py) - Automated migration
-3. **Docker Configuration**: [docker-compose.full.yml](../docker-compose.full.yml) - Container orchestration
-4. **Pipeline Management**: [scripts/pipeline_runner.py](../scripts/pipeline_runner.py) - Automated workflows
-5. **Performance Optimization**: [parallel_execution.md](parallel_execution.md) - 60-80% faster execution
+3. **Pipeline Management**: [scripts/pipeline_runner.py](../scripts/pipeline_runner.py) - Automated workflows
+4. **Performance Optimization**: [parallel_execution.md](parallel_execution.md) - 60-80% faster execution
 
 ### For AI Developers
 3. **Automated Pipelines**: [scripts/pipeline_runner.py](../scripts/pipeline_runner.py) - Multi-step workflows
@@ -131,7 +122,6 @@ curl http://localhost:8000/tools
 3. Explore token savings and performance benefits
 
 ### For System Administrators
-2. Use [migration script](../scripts/migrate.py)
 3. Set up monitoring and logging
 
 ## 🔍 Troubleshooting
@@ -174,8 +164,7 @@ curl http://localhost:8000/tools
 ## 📞 Support
 
 ### Documentation Resources
-2. **Migration**: MIGRATION_GUIDE.md and scripts/migrate.py
-3. **Tools**: opspectre-tools.md
+2. **Tools**: opspectre-tools.md
 
 ### Community Support
 - GitHub Issues: Report bugs and request features
@@ -186,6 +175,5 @@ curl http://localhost:8000/tools
 
 **Quick Navigation:**
 - [Quick Start](QUICK_START.md) - Get started in 5 minutes
-- [Migration Guide](MIGRATION_GUIDE.md) - Move to new system
 - [Tools Reference](opspectre-tools.md) - All available tools
 - [Main README](../README.md) - Complete overview

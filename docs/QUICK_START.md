@@ -204,7 +204,6 @@ docker-compose -f docker-compose.full.yml logs -f
 ## 📚 Next Steps
 
 ### For AI Agents
-3. Explore `AUTO_STARTUP.md` for production deployment
 
 ### For Manual Usage
 1. Read `README.md` for complete CLI documentation
