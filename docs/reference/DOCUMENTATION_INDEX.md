@@ -8,14 +8,14 @@ This index provides a comprehensive overview of all OperationSpectre documentati
 | Document | Description | Audience | Status |
 |----------|-------------|----------|---------|
 | [README.md](../README.md) | Main documentation with pi-based execution | All users | ✅ Updated |
-| [../getting-started/../getting-started/QUICK_START.md](../getting-started/../getting-started/QUICK_START.md) | Quick start guide with both CLI and CLI modes | New users | ✅ Updated |
+| [../getting-started/../getting-started/../getting-started/QUICK_START.md](../getting-started/../getting-started/../getting-started/QUICK_START.md) | Quick start guide with both CLI and CLI modes | New users | ✅ Updated |
 
 ### Tool-Specific Documentation
 | Document | Description | Status |
 |----------|-------------|---------|
-| [playbooks/FULL_ARSENAL_README.md](playbooks/FULL_ARSENAL_README.md) | Complete tools list with pi-based execution | ✅ Updated |
-| [playbooks/WEB_APP_AUDIT.md](playbooks/WEB_APP_AUDIT.md) | Web application auditing guide | ✅ Updated |
-| [about/../about/parallel_execution.md](about/../about/parallel_execution.md) | Parallel execution optimization guide | ✅ New |
+| [../playbooks/FULL_ARSENAL_README.md](../playbooks/FULL_ARSENAL_README.md) | Complete tools list with pi-based execution | ✅ Updated |
+| [../playbooks/WEB_APP_AUDIT.md](../playbooks/WEB_APP_AUDIT.md) | Web application auditing guide | ✅ Updated |
+| [about/../../about/../about/parallel_execution.md](about/../../about/../about/parallel_execution.md) | Parallel execution optimization guide | ✅ New |
 | [PIPELINES.md](PIPELINES.md) | Complete pipeline documentation and usage | ✅ New |
 
 ### Skills Documentation
@@ -26,16 +26,16 @@ This index provides a comprehensive overview of all OperationSpectre documentati
 ## 🎯 Quick Start Guides
 
 ### For New Users
-1. **Start Here**: [../getting-started/../getting-started/QUICK_START.md](../getting-started/../getting-started/QUICK_START.md) - Choose between CLI and CLI modes
+1. **Start Here**: [../getting-started/../getting-started/../getting-started/QUICK_START.md](../getting-started/../getting-started/../getting-started/QUICK_START.md) - Choose between CLI and CLI modes
 3. **Automated Workflows**: [PIPELINES.md](PIPELINES.md) - Multi-step security pipelines
 
 ### For System Administrators
 3. **Pipeline Management**: [scripts/pipeline_runner.py](../../../scripts/pipeline_runner.py) - Automated workflows
-4. **Performance Optimization**: [about/../about/parallel_execution.md](about/../about/parallel_execution.md) - 60-80% faster execution
+4. **Performance Optimization**: [about/../../about/../about/parallel_execution.md](about/../../about/../about/parallel_execution.md) - 60-80% faster execution
 
 ### For AI Developers
 3. **Automated Pipelines**: [scripts/pipeline_runner.py](../../../scripts/pipeline_runner.py) - Multi-step workflows
-4. **Parallel Execution**: [about/../about/parallel_execution.md](about/../about/parallel_execution.md) - Performance optimization
+4. **Parallel Execution**: [about/../../about/../about/parallel_execution.md](about/../../about/../about/parallel_execution.md) - Performance optimization
 
 ## 🏗️ Architecture Documentation
 
@@ -114,7 +114,7 @@ curl http://localhost:8000/tools
 ## 📚 Learning Path
 
 ### For Beginners
-1. Start with [../getting-started/../getting-started/QUICK_START.md](../getting-started/../getting-started/QUICK_START.md)
+1. Start with [../getting-started/../getting-started/../getting-started/QUICK_START.md](../getting-started/../getting-started/../getting-started/QUICK_START.md)
 2. Try CLI mode for manual usage
 3. Explore basic tools (nmap, file operations)
 
@@ -164,7 +164,7 @@ curl http://localhost:8000/tools
 ## 📞 Support
 
 ### Documentation Resources
-2. **Tools**: playbooks/FULL_ARSENAL_README.md
+2. **Tools**: ../playbooks/FULL_ARSENAL_README.md
 
 ### Community Support
 - GitHub Issues: Report bugs and request features
@@ -174,6 +174,6 @@ curl http://localhost:8000/tools
 ---
 
 **Quick Navigation:**
-- [Quick Start](../getting-started/../getting-started/QUICK_START.md) - Get started in 5 minutes
-- [Tools Reference](playbooks/FULL_ARSENAL_README.md) - All available tools
+- [Quick Start](../getting-started/../getting-started/../getting-started/QUICK_START.md) - Get started in 5 minutes
+- [Tools Reference](../playbooks/FULL_ARSENAL_README.md) - All available tools
 - [Main README](../README.md) - Complete overview
