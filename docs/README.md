@@ -37,8 +37,8 @@ Conceptual and operational background.
 
 Performance, monitoring, and deployment notes.
 
-- **[PERFORMANCE_ALWAYS_ON.md](operations/PERFORMANCE_ALWAYS_ON.md)** — Continuous performance monitoring setup.
-- **[PERFORMANCE_IMPLEMENTATION.md](operations/PERFORMANCE_IMPLEMENTATION.md)** — Implementation details of the performance system.
+- **[PERFORMANCE_IMPLEMENTATION.md](../PERFORMANCE_IMPLEMENTATION.md)** — Implementation details and continuous monitoring setup — Continuous performance monitoring setup.
+- **[PERFORMANCE_IMPLEMENTATION.md](../PERFORMANCE_IMPLEMENTATION.md)** — Implementation details of the performance system — Implementation details of the performance system.
 - *(future: deployment, admin, scaling)*
 
 ---
