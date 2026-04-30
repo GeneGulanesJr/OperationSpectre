@@ -5,175 +5,101 @@ This index provides a comprehensive overview of all OperationSpectre documentati
 ## 📖 Documentation Overview
 
 ### Primary Documentation
+
 | Document | Description | Audience | Status |
 |----------|-------------|----------|---------|
-| [README.md](../README.md) | Main documentation with pi-based execution | All users | ✅ Updated |
-| [../getting-started/../getting-started/../getting-started/QUICK_START.md](../getting-started/../getting-started/../getting-started/QUICK_START.md) | Quick start guide with both CLI and CLI modes | New users | ✅ Updated |
+| [../README.md](../README.md) | Main documentation with pi-based execution | All users | ✅ Updated |
+| [../getting-started/QUICK_START.md](../getting-started/QUICK_START.md) | Quick start guide — first scan in 10 minutes | New users | ✅ Updated |
 
 ### Tool-Specific Documentation
+
 | Document | Description | Status |
 |----------|-------------|---------|
 | [../playbooks/FULL_ARSENAL_README.md](../playbooks/FULL_ARSENAL_README.md) | Complete tools list with pi-based execution | ✅ Updated |
 | [../playbooks/WEB_APP_AUDIT.md](../playbooks/WEB_APP_AUDIT.md) | Web application auditing guide | ✅ Updated |
-| [about/../../about/../about/parallel_execution.md](about/../../about/../about/parallel_execution.md) | Parallel execution optimization guide | ✅ New |
+| [../about/parallel_execution.md](../about/parallel_execution.md) | Parallel execution optimization guide | ✅ New |
 | [PIPELINES.md](PIPELINES.md) | Complete pipeline documentation and usage | ✅ New |
 
 ### Skills Documentation
+
 | Document | Description | Status |
 |----------|-------------|---------|
-| [pentest-recon/SKILL.md](../../.pi/skills/pentest-recon/SKILL.md) | Traditional reconnaissance pipeline | ⚠️ Needs update |
+| [../../.pi/skills/SKILLS_INDEX.md](../../.pi/skills/SKILLS_INDEX.md) | Catalog of all available Hermes agent skills | ✅ Updated |
 
 ## 🎯 Quick Start Guides
 
 ### For New Users
-1. **Start Here**: [../getting-started/../getting-started/../getting-started/QUICK_START.md](../getting-started/../getting-started/../getting-started/QUICK_START.md) - Choose between CLI and CLI modes
-3. **Automated Workflows**: [PIPELINES.md](PIPELINES.md) - Multi-step security pipelines
+1. **Start Here**: [../getting-started/QUICK_START.md](../getting-started/QUICK_START.md) — Set up the sandbox and run your first scan
+2. **Pipeline Basics**: [PIPELINES.md](PIPELINES.md) — Multi-step security pipelines
 
 ### For System Administrators
-3. **Pipeline Management**: [scripts/pipeline_runner.py](../../../scripts/pipeline_runner.py) - Automated workflows
-4. **Performance Optimization**: [about/../../about/../about/parallel_execution.md](about/../../about/../about/parallel_execution.md) - 60-80% faster execution
+1. **Pipeline Runner**: [../../scripts/pipeline_runner.py](../../scripts/pipeline_runner.py) — Automated workflow script
+2. **Performance**: [../about/parallel_execution.md](../about/parallel_execution.md) — Parallel execution optimization
 
 ### For AI Developers
-3. **Automated Pipelines**: [scripts/pipeline_runner.py](../../../scripts/pipeline_runner.py) - Multi-step workflows
-4. **Parallel Execution**: [about/../../about/../about/parallel_execution.md](about/../../about/../about/parallel_execution.md) - Performance optimization
+1. **Skill Catalog**: [../../.pi/skills/SKILLS_INDEX.md](../../.pi/skills/SKILLS_INDEX.md) — Available AI skills
+2. **Parallel Execution**: [../about/parallel_execution.md](../about/parallel_execution.md) — Performance optimization
 
 ## 🏗️ Architecture Documentation
 
 ### Pi-Only Architecture
-OperationSpectre now supports two execution modes:
+OperationSpectre runs in a pi-based execution environment with structured tool outputs.
 
-#### CLI Mode (Traditional)
-```
-User → CLI → Docker Container → 50+ Tools
-    ↓      ↓      ↓           ↓
-Manual  Text   Fast        Full Kali Arsenal
-                CLI        Playbooks Embedded
-```
+#### Execution Modes
+- **CLI Mode** — Traditional text-based tool invocation
+- **Pi Mode** — Native process integration with JSON results
 
 ### Integration Points
-- **AI Agent Integration**: pi-pentest-recon tools provide structured JSON responses
+- **AI Agent**: pi-pentest-recon tools provide structured JSON responses
 - **CLI Backward Compatibility**: Existing CLI commands work unchanged
-- **Container Orchestration**: Docker Compose manages Docker sandbox and sandbox
-- **Monitoring**: Health checks, logging, and status management
+- **Container Orchestration**: Docker Compose manages the sandbox
 
 ## 🔧 Tool Reference
 
-### CLI Tools Available
-| Category | Tools | Description |
-|----------|-------|-------------|
-| **Network Scanning** | `nmap`, `naabu`, `nping` | Network scanning tools |
-| **Web Reconnaissance** | `httpx`, `ffuf`, `dirsearch` | Web testing tools |
-| **Vulnerability Scanning** | `nuclei`, `sqlmap`, `wapiti` | Security scanners |
-| **Exploitation** | `metasploit`, `burpsuite`, `hydra` | Exploitation frameworks |
-| **Post-Exploitation** | `john`, `hashcat`, `gobuster` | Password cracking tools |
+See the [Full Arsenal](../playbooks/FULL_ARSENAL_README.md) for the complete tool list.
 
-## 📊 Performance Documentation
+## 📊 Performance
 
-### Token Savings
-- **Traditional CLI**: ~24,000 tokens per step (subprocess overhead)
-- **Savings**: 60-80% reduction in multi-tool workflows
+- Token savings: 60–80% reduction in multi-tool workflows
+- See [parallel_execution.md](../about/parallel_execution.md) for details
 
-### Response Comparison
-|---------|----------|----------|
-| Response Format | Raw text | Structured JSON |
-| Error Handling | Basic | Advanced with retry |
-| State Management | Manual | Automatic |
-| Tool Chaining | Shell escaping | Native integration |
-| Monitoring | Basic | Comprehensive |
+## 🚀 Deployment
 
-## 🚀 Deployment Documentation
-
-### Development Environment
+### Development
 ```bash
-# Quick start for development
 ./scripts/manage.py start
 ./scripts/manage.py status
-curl http://localhost:8000/health
 ```
 
-### Production Environment
+### Production
 ```bash
-# Production deployment
 docker-compose -f docker-compose.full.yml up -d
-./scripts/manage.py logs --follow
 ```
 
-### Monitoring and Logging
-```bash
-# Check all services
-./scripts/manage.py status
-
-# View logs
-./scripts/manage.py logs --follow
-
-# Health checks
-curl http://localhost:8000/health
-curl http://localhost:8000/tools
-```
+See [main README](../README.md) for complete setup instructions.
 
 ## 📚 Learning Path
 
-### For Beginners
-1. Start with [../getting-started/../getting-started/../getting-started/QUICK_START.md](../getting-started/../getting-started/../getting-started/QUICK_START.md)
-2. Try CLI mode for manual usage
-3. Explore basic tools (nmap, file operations)
-
-### For AI Developers
-3. Explore token savings and performance benefits
-
-### For System Administrators
-3. Set up monitoring and logging
+1. [QUICK_START.md](../getting-started/QUICK_START.md)
+2. [PIPELINES.md](PIPELINES.md)
+3. [FULL_ARSENAL_README.md](../playbooks/FULL_ARSENAL_README.md)
 
 ## 🔍 Troubleshooting
 
-### Common Issues
-- **Port conflicts**: Use `./scripts/manage.py start --port 8001`
-- **Docker issues**: `docker info` and `docker logs opspectre-sandbox`
-- **Docker sandbox**: `curl http://localhost:8000/health`
-- **Permissions**: `chmod +x scripts/*.py`
-
-### Logs Location
-```bash
-# All logs
-./scripts/manage.py logs --follow
-
-# Specific service logs
-  - Service logs: `docker-compose -f docker-compose.full.yml logs -f`
-./scripts/manage.py logs --service opspectre-sandbox --follow
-```
+Common issues and solutions are documented in the [main README](../README.md) and individual playbooks.
 
 ## 📈 Roadmap
 
-### Completed Features
-- ✅ Docker sandbox implementation
-- ✅ Auto-startup system
-- ✅ 19+ pi-pentest-recon tools
-- ✅ Complete documentation update
-- ✅ Migration guide and script
-- ✅ Performance optimization
-- ✅ Health monitoring
-
-### Planned Features
-- 🔄 Enhanced error handling
-- 🔄 Advanced monitoring (Prometheus)
-- 🔄 Multi-tenant support
-- 🔄 GPU acceleration
-- 🔄 Web dashboard
-- 🔄 API authentication
+See the project [PLAN.md](PLAN.md) for completed features and planned work.
 
 ## 📞 Support
 
-### Documentation Resources
-2. **Tools**: ../playbooks/FULL_ARSENAL_README.md
-
-### Community Support
-- GitHub Issues: Report bugs and request features
-- Discussion: Ask questions and share experiences
-- Documentation: Help improve docs
+- **Documentation**: Browse the playbooks and reference guides above
+- **Skills**: Review [SKILLS_INDEX.md](../../.pi/skills/SKILLS_INDEX.md) for AI capabilities
 
 ---
 
-**Quick Navigation:**
-- [Quick Start](../getting-started/../getting-started/../getting-started/QUICK_START.md) - Get started in 5 minutes
-- [Tools Reference](../playbooks/FULL_ARSENAL_README.md) - All available tools
-- [Main README](../README.md) - Complete overview
+**Quick Navigation**
+- [Quick Start](../getting-started/QUICK_START.md)
+- [Tools Reference](../playbooks/FULL_ARSENAL_README.md)
+- [Main README](../README.md)
