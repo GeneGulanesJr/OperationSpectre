@@ -17,7 +17,7 @@ def run_sequential_pipeline():
 
     cmd = [
         "python3", "scripts/pipeline_runner.py",
-        "scripts/pipelines/parallel_pentest.yaml",
+        "pipelines/parallel_pentest.yaml",
         "--target", "example.com",
         "--domain", "example.com"
     ]
@@ -43,7 +43,7 @@ def run_parallel_pipeline():
 
     cmd = [
         "python3", "scripts/pipeline_runner.py",
-        "scripts/pipelines/parallel_pentest.yaml",
+        "pipelines/parallel_pentest.yaml",
         "--target", "example.com",
         "--domain", "example.com",
         "--parallel"
@@ -72,7 +72,7 @@ def main():
         print("❌ pipeline_runner.py not found!")
         sys.exit(1)
 
-    if not Path("scripts/pipelines/parallel_pentest.yaml").exists():
+    if not Path("pipelines/parallel_pentest.yaml").exists():
         print("❌ parallel_pentest.yaml not found!")
         sys.exit(1)
 

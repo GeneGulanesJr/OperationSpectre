@@ -43,7 +43,7 @@ test:
 	uv run pytest -v
 
 typecheck:
-	uv run pyright opspectre/
+	uv run pyright src/opspectre/
 
 pre-commit:
 	uv run pre-commit run --all-files

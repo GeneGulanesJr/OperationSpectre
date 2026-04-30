@@ -15,13 +15,13 @@ opspectre file read /workspace/output/results.txt
 ### Option 3: Automated Pipelines (Multi-Step Workflows)
 ```bash
 # Standard sequential execution
-python3 scripts/pipeline_runner.py scripts/pipelines/pentest.yaml --target example.com
+python3 scripts/pipeline_runner.py pipelines/pentest.yaml --target example.com
 
 # Parallel execution (60-80% faster)
-python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml --target example.com --parallel
+python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml --target example.com --parallel
 
 # CTF challenges
-python3 scripts/pipeline_runner.py scripts/pipelines/ctf-web.yaml --target http://10.10.10.10:8080
+python3 scripts/pipeline_runner.py pipelines/ctf-web.yaml --target http://10.10.10.10:8080
 ```
 
 ### Option 4: Docker Compose

@@ -18,7 +18,7 @@ OperationSpectre/
 ├── QUICK_START.md          # Getting started guide
 ├── LICENSE
 ├── uv.lock                 # Dependency lock file
-├── opspectre/              # Main package source
+├── src/opspectre/              # Main package source
 │   ├── __init__.py
 │   ├── cli/                # CLI command handlers
 │   ├── core/               # Core sandbox/engine logic
@@ -248,8 +248,8 @@ make format        # Format code
 
 ## Adding New CLI Commands
 
-1. Add command handler in `opspectre/commands/`
-2. Register in the CLI router in `opspectre/cli/`
+1. Add command handler in `src/opspectre/commands/`
+2. Register in the CLI router in `src/opspectre/cli/`
 3. Add tests in `tests/`
 4. Update `README.md` and `PLAN.md`
 5. Run tests: `uv run pytest tests/ -v`

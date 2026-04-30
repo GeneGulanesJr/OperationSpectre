@@ -6,7 +6,7 @@ Successfully implemented a comprehensive performance monitoring system for Opera
 
 ## 📊 Key Features Implemented
 
-### 1. **PerformanceLogger Class** (`opspectre/performance.py`)
+### 1. **PerformanceLogger Class** (`src/src/opspectre/performance.py`)
 - **Real-time timing**: Measures execution time of any operation using context managers
 - **Success/failure tracking**: Records whether operations completed successfully
 - **Automatic logging**: Logs all operations with configurable thresholds
@@ -14,14 +14,14 @@ Successfully implemented a comprehensive performance monitoring system for Opera
 - **Bottleneck detection**: Automatically identifies slow operations (>5s by default)
 - **Export functionality**: Supports JSON and CSV formats for data analysis
 
-### 2. **Configuration Integration** (`opspectre/config.py`)
+### 2. **Configuration Integration** (`src/src/opspectre/config.py`)
 - Added performance-related configuration options:
   - `opspectre_performance_logging`: Enable/disable performance monitoring
   - `opspectre_slow_operation_threshold`: Define what constitutes a slow operation (ms)
   - `opspectre_metrics_interval`: Data collection interval
 - Environment variable support with `OPSPECTRE_*` prefixes
 
-### 3. **CLI Integration** (`opspectre/main.py`)
+### 3. **CLI Integration** (`src/src/opspectre/main.py`)
 - Added `performance` command to the CLI
 - Supports displaying analytics, exporting data, and configuration management
 - Simple text-based output for environments without rich library
@@ -176,11 +176,11 @@ with performance_logger.measure("file_read_cmd", path=path):
 
 | Component | Status | Features | Files Modified |
 |-----------|--------|----------|----------------|
-| PerformanceLogger | ✅ Complete | Timing, success tracking, logging | opspectre/performance.py |
-| Configuration | ✅ Complete | Performance settings | opspectre/config.py |
-| CLI Integration | ✅ Complete | performance command | opspectre/main.py |
-| Command Integration | ✅ Complete | All major operations | opspectre/commands/*.py |
-| Analytics Dashboard | ✅ Complete | Statistics, bottlenecks, export | opspectre/commands/performance.py |
+| PerformanceLogger | ✅ Complete | Timing, success tracking, logging | src/src/opspectre/performance.py |
+| Configuration | ✅ Complete | Performance settings | src/src/opspectre/config.py |
+| CLI Integration | ✅ Complete | performance command | src/src/opspectre/main.py |
+| Command Integration | ✅ Complete | All major operations | src/src/opspectre/commands/*.py |
+| Analytics Dashboard | ✅ Complete | Statistics, bottlenecks, export | src/src/opspectre/commands/performance.py |
 | Testing & Validation | ✅ Complete | Comprehensive test suite | test_performance.py, direct_demo.py |
 
 **Total Files Modified**: 8 files

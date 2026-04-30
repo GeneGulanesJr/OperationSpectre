@@ -43,16 +43,16 @@ Each step executes inside the Kali sandbox with full tool access.
 
 ```bash
 # CTF web challenge
-python3 scripts/pipeline_runner.py scripts/pipelines/ctf-web.yaml --target http://10.10.10.10:8080
+python3 scripts/pipeline_runner.py pipelines/ctf-web.yaml --target http://10.10.10.10:8080
 
 # CTF crypto challenge
-python3 scripts/pipeline_runner.py scripts/pipelines/ctf-crypto.yaml --input "ZmxhZ3toZWxsb30="
+python3 scripts/pipeline_runner.py pipelines/ctf-crypto.yaml --input "ZmxhZ3toZWxsb30="
 
 # Full pentest reconnaissance
-python3 scripts/pipeline_runner.py scripts/pipelines/pentest.yaml --target example.com
+python3 scripts/pipeline_runner.py pipelines/pentest.yaml --target example.com
 
 # With specific model
-python3 scripts/pipeline_runner.py scripts/pipelines/ctf-web.yaml \
+python3 scripts/pipeline_runner.py pipelines/ctf-web.yaml \
     --target http://10.10.10.10 \
     --model ollama/llama3:9b \
     --provider ollama
@@ -62,13 +62,13 @@ python3 scripts/pipeline_runner.py scripts/pipelines/ctf-web.yaml \
 
 ```bash
 # Parallel CTF web challenge
-python3 scripts/pipeline_runner.py scripts/pipelines/ctf-web.yaml --target http://10.10.10.10:8080 --parallel
+python3 scripts/pipeline_runner.py pipelines/ctf-web.yaml --target http://10.10.10.10:8080 --parallel
 
 # Parallel pentest reconnaissance (maximum performance)
-python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml --target example.com --parallel
+python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml --target example.com --parallel
 
 # Parallel execution with performance tuning
-python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml \
+python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml \
     --target example.com \
     --parallel \
     --concurrency 4 \
@@ -81,19 +81,19 @@ python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml \
 
 | Pipeline | File | Purpose | Performance |
 |----------|------|---------|-------------|
-| CTF Web | `scripts/pipelines/ctf-web.yaml` | Web CTF: recon → enumerate → SQLi → XSS → report | Sequential |
-| CTF Crypto | `scripts/pipelines/ctf-crypto.yaml` | Crypto CTF: identify → decode → XOR → report | Sequential |
-| Pentest | `scripts/pipelines/pentest.yaml` | Full pentest: OSINT → subdomains → ports → vulns → report | Sequential (~15 min) |
+| CTF Web | `pipelines/ctf-web.yaml` | Web CTF: recon → enumerate → SQLi → XSS → report | Sequential |
+| CTF Crypto | `pipelines/ctf-crypto.yaml` | Crypto CTF: identify → decode → XOR → report | Sequential |
+| Pentest | `pipelines/pentest.yaml` | Full pentest: OSINT → subdomains → ports → vulns → report | Sequential (~15 min) |
 
 ### Parallel Pipelines (Recommended - 60-80% Faster)
 
 | Pipeline | File | Purpose | Performance |
 |----------|------|---------|-------------|
-| Parallel Pentest | `scripts/pipelines/parallel_pentest.yaml` | Optimized full pentest with concurrent execution | **~5 minutes** |
+| Parallel Pentest | `pipelines/parallel_pentest.yaml` | Optimized full pentest with concurrent execution | **~5 minutes** |
 
 ## Creating Custom Pipelines
 
-Create a YAML file in `scripts/pipelines/`:
+Create a YAML file in `pipelines/`:
 
 ```yaml
 name: My Custom Pipeline

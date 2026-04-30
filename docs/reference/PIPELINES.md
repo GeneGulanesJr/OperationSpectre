@@ -25,39 +25,39 @@ Intelligent parallel execution can reduce scan times by **60-80%**.
 ## Available Pipelines
 
 ### 🚀 Parallel Pentest Pipeline (Recommended)
-**File**: `scripts/pipelines/parallel_pentest.yaml`  
+**File**: `pipelines/parallel_pentest.yaml`  
 **Performance**: 60-80% faster than sequential  
 **Use Case**: Full security pentest with optimized parallel execution
 
 ```bash
-python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml --target example.com --parallel
+python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml --target example.com --parallel
 ```
 
 ### 🔍 Standard Pentest Pipeline
-**File**: `scripts/pipelines/pentest.yaml`  
+**File**: `pipelines/pentest.yaml`  
 **Performance**: Traditional sequential execution  
 **Use Case**: Backward compatibility and debugging
 
 ```bash
-python3 scripts/pipeline_runner.py scripts/pipelines/pentest.yaml --target example.com
+python3 scripts/pipeline_runner.py pipelines/pentest.yaml --target example.com
 ```
 
 ### 🎯 CTF Web Challenge Pipeline
-**File**: `scripts/pipelines/ctf-web.yaml`  
+**File**: `pipelines/ctf-web.yaml`  
 **Performance**: Sequential (complex dependencies)  
 **Use Case**: Capture-the-flag web challenges
 
 ```bash
-python3 scripts/pipeline_runner.py scripts/pipelines/ctf-web.yaml --target http://10.10.10.10:8080
+python3 scripts/pipeline_runner.py pipelines/ctf-web.yaml --target http://10.10.10.10:8080
 ```
 
 ### 🔐 CTF Crypto Challenge Pipeline
-**File**: `scripts/pipelines/ctf-crypto.yaml`  
+**File**: `pipelines/ctf-crypto.yaml`  
 **Performance**: Sequential (linear process)  
 **Use Case**: Cryptographic challenges
 
 ```bash
-python3 scripts/pipeline_runner.py scripts/pipelines/ctf-crypto.yaml --input "encrypted_string_here"
+python3 scripts/pipeline_runner.py pipelines/ctf-crypto.yaml --input "encrypted_string_here"
 ```
 
 ## Pipeline Structure
@@ -121,16 +121,16 @@ steps:
 ### Basic Usage
 ```bash
 # Run pipeline
-python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml --target example.com
+python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml --target example.com
 
 # With parallel execution (recommended)
-python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml --target example.com --parallel
+python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml --target example.com --parallel
 
 # Custom output directory
-python3 scripts/pipeline_runner.py scripts/pipelines/pentest.yaml --target example.com --output-dir /results
+python3 scripts/pipeline_runner.py pipelines/pentest.yaml --target example.com --output-dir /results
 
 # Specify model
-python3 scripts/pipeline_runner.py scripts/pipelines/ctf-web.yaml --target http://10.10.10.10 --model local/llama3:9b
+python3 scripts/pipeline_runner.py pipelines/ctf-web.yaml --target http://10.10.10.10 --model local/llama3:9b
 ```
 
 ### Advanced Options
@@ -209,7 +209,7 @@ python3 scripts/pipeline_runner.py script.yaml --target example.com --provider o
 1. **Choose the parallel pipeline**:
    ```bash
    # Replace old sequential pipeline
-   cp scripts/pipelines/pentest.yaml scripts/pipelines/parallel_pentest.yaml
+   cp pipelines/pentest.yaml pipelines/parallel_pentest.yaml
    ```
 
 2. **Add --parallel flag**:
@@ -293,7 +293,7 @@ steps:
 ```python
 # AI agent can trigger pipelines
 pipeline_result = run_pipeline(
-    "scripts/pipelines/parallel_pentest.yaml",
+    "pipelines/parallel_pentest.yaml",
     target="example.com",
     parallel=True
 )
@@ -304,7 +304,7 @@ pipeline_result = run_pipeline(
 # Example GitHub Action
 - name: Security Scan
   run: |
-    python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml \
+    python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml \
       --target ${{ vars.TARGET_DOMAIN }} \
       --parallel \
       --output-dir ./security-results

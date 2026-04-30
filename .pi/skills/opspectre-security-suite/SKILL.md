@@ -288,7 +288,7 @@ opspectre shell "docker build -f containers/Dockerfile -t opspectre-dev ."
 ### Multi-Step Workflow Execution
 ```bash
 # For complex multi-step workflows using small model pipeline
-python3 scripts/pipeline_runner.py scripts/pipelines/pentest.yaml --target example.com
+python3 scripts/pipeline_runner.py pipelines/pentest.yaml --target example.com
 ```
 
 **After completing Phase 7:** Full security assessment and development analysis complete. All findings documented and reported.
@@ -324,7 +324,7 @@ For dramatically faster full security assessments:
 
 ```bash
 # Parallel execution of all phases
-python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml --target <DOMAIN> --parallel
+python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml --target <DOMAIN> --parallel
 
 # Performance comparison:
 # Sequential: ~45 minutes

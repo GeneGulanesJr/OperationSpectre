@@ -1,5 +1,5 @@
 # CTF Pipeline — Fully automated, one tool per pi subprocess
-# Usage: python3 scripts/pipeline_runner.py scripts/pipelines/ctf-web.yaml --target http://ctf.example.com:8080
+# Usage: python3 scripts/pipeline_runner.py pipelines/ctf-web.yaml --target http://ctf.example.com:8080
 
 name: CTF Web Challenge
 description: Full web CTF pipeline — recon, enumerate, attack, flag capture

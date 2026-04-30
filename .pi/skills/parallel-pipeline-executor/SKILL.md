@@ -50,7 +50,7 @@ Total: ~5 minutes (max concurrent execution time)
 ### Basic Parallel Execution
 ```bash
 # Fast parallel pentest (60-80% faster)
-python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml --target example.com --parallel
+python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml --target example.com --parallel
 
 # Performance comparison:
 # Traditional: ~15 minutes, ~24,000 tokens
@@ -60,20 +60,20 @@ python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml --tar
 ### Advanced Configuration
 ```bash
 # Control concurrency for resource management
-python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml \
+python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml \
     --target example.com \
     --parallel \
     --concurrency 3 \
     --step-timeout 600
 
 # Custom output directory with parallel execution
-python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml \
+python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml \
     --target example.com \
     --parallel \
     --output-dir /results/parallel-scan
 
 # With AI model specification
-python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml \
+python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml \
     --target example.com \
     --parallel \
     --model local/llama3:9b \
@@ -271,7 +271,7 @@ export RL_NUCLEI="rl 10 -timeout 30"
 ### Error Handling Strategies
 ```bash
 # Graceful degradation when targets are unreachable
-python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml \
+python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml \
     --target example.com \
     --parallel \
     --continue-on-error
@@ -324,7 +324,7 @@ class ParallelPipelineAgent:
     def run_parallel_recon(self):
         result = subprocess.run([
             "python3", "scripts/pipeline_runner.py",
-            "scripts/pipelines/parallel_pentest.yaml",
+            "pipelines/parallel_pentest.yaml",
             "--target", self.target,
             "--parallel"
         ], capture_output=True, text=True)
@@ -338,7 +338,7 @@ class ParallelPipelineAgent:
 - name: Security Scan (Parallel)
   run: |
     python3 scripts/pipeline_runner.py \
-      scripts/pipelines/parallel_pentest.yaml \
+      pipelines/parallel_pentest.yaml \
       --target ${{ vars.TARGET_DOMAIN }} \
       --parallel \
       --output-dir ./security-results
@@ -410,7 +410,7 @@ python3 -c "import psutil; print(f'Current memory: {psutil.virtual_memory().perc
 ### Debug Mode
 ```bash
 # Enable debug logging
-python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml \
+python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml \
     --target example.com \
     --parallel \
     --debug
@@ -429,7 +429,7 @@ python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml \
 1. **Choose the optimized pipeline**:
    ```bash
    # Replace old sequential pipeline
-   cp scripts/pipelines/pentest.yaml scripts/pipelines/parallel_pentest.yaml
+   cp pipelines/pentest.yaml pipelines/parallel_pentest.yaml
    ```
 
 2. **Add parallel execution flag**:
@@ -439,7 +439,7 @@ python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml \
 
 3. **Test performance**:
    ```bash
-   time python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml --target example.com --parallel
+   time python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml --target example.com --parallel
    ```
 
 ### Performance Tuning Workflow

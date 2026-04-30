@@ -1,5 +1,5 @@
 # CTF Pipeline — Crypto challenges
-# Usage: python3 scripts/pipeline_runner.py scripts/pipelines/ctf-crypto.yaml --input "encrypted_string_here"
+# Usage: python3 scripts/pipeline_runner.py pipelines/ctf-crypto.yaml --input "encrypted_string_here"
 
 name: CTF Crypto Challenge
 description: Automated crypto analysis pipeline

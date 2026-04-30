@@ -94,10 +94,10 @@ OperationSpectre/
 ├── CONTAINER_PLAYBOOKS.md           # Container playbook documentation
 ├── FULL_ARSENAL_README.md           # Full arsenal overview
 ├── opspectre-tools.md               # Available sandbox tools documentation
-├── opspectre/
+├── src/src/opspectre/
 │   ├── __init__.py
 │   ├── main.py                      # CLI entry point (argparse)
-│   ├── config.py                    # Config save/load (~/.opspectre/cli-config.json)
+│   ├── config.py                    # Config save/load (~/.src/opspectre/cli-config.json)
 │   ├── sandbox/
 │   │   ├── __init__.py
 │   │   ├── docker_runtime.py        # Docker container management
@@ -195,7 +195,7 @@ OPSPECTRE_OUTPUT_LIMIT="1048576"          # Max output size in bytes (1MB defaul
 
 ## Config System
 
-Config is saved to `~/.opspectre/cli-config.json`.
+Config is saved to `~/.src/opspectre/cli-config.json`.
 
 ```json
 {
@@ -319,7 +319,7 @@ opspectre runs show <run-name>        # Show summary of a run
 - [x] Create docker-entrypoint.sh
 - [x] Implement docker_runtime.py (container start/stop/status, port finding, token auth)
 - [x] Implement tool_server.py (FastAPI endpoints: /execute, /file/*, /health)
-- [x] Implement config.py (save/load ~/.opspectre/cli-config.json)
+- [x] Implement config.py (save/load ~/.src/opspectre/cli-config.json)
 
 ### Phase 3: CLI Commands + Reporting ✅
 - [x] main.py - Argparse with subcommands (sandbox, shell, file, code, browser, runs, config)

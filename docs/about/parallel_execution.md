@@ -26,12 +26,12 @@ Independent steps run concurrently while dependencies are respected.
 
 ### Basic Sequential Execution (Original)
 ```bash
-python3 scripts/pipeline_runner.py scripts/pipelines/pentest.yaml --target example.com
+python3 scripts/pipeline_runner.py pipelines/pentest.yaml --target example.com
 ```
 
 ### Parallel Execution (Optimized)
 ```bash
-python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml --target example.com --parallel
+python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml --target example.com --parallel
 ```
 
 ## Pipeline Optimization
@@ -140,7 +140,7 @@ Real-time progress shows:
 1. **Use the parallel pipeline**:
    ```bash
    # Replace old pipeline
-   cp scripts/pipelines/pentest.yaml scripts/pipelines/parallel_pentest.yaml
+   cp pipelines/pentest.yaml pipelines/parallel_pentest.yaml
    ```
 
 2. **Add --parallel flag**:
@@ -175,7 +175,7 @@ Real-time progress shows:
 
 ### Example 1: Fast Web Recon
 ```bash
-python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml \
+python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml \
   --target example.com \
   --parallel \
   --concurrency 4
@@ -183,7 +183,7 @@ python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml \
 
 ### Example 2: Comprehensive Pentest
 ```bash
-python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml \
+python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml \
   --target example.com \
   --parallel \
   --step-timeout 600 \
@@ -194,7 +194,7 @@ python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml \
 ```bash
 #!/bin/bash
 for target in example1.com example2.com example3.com; do
-  python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml \
+  python3 scripts/pipeline_runner.py pipelines/parallel_pentest.yaml \
     --target $target \
     --parallel &
 done
