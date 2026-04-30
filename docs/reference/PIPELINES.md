@@ -321,7 +321,7 @@ pipeline_result = run_pipeline(
 ## Support
 
 For issues and questions:
-1. Check the [parallel execution guide](parallel_execution.md)
+1. Check the [parallel execution guide](../about/parallel_execution.md)
 2. Run the test suite: `python3 test_parallel_execution.py`
 3. Review pipeline logs in the output directory
 4. Check system resources during execution

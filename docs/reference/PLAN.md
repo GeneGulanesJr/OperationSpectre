@@ -93,7 +93,7 @@ OperationSpectre/
 ├── BURP_SUITE_VERIFICATION.md       # Burp Suite agent verification guide
 ├── CONTAINER_PLAYBOOKS.md           # Container playbook documentation
 ├── FULL_ARSENAL_README.md           # Full arsenal overview
-├── opspectre-tools.md               # Available sandbox tools documentation
+├── ../playbooks/FULL_ARSENAL_README.md               # Available sandbox tools documentation
 ├── src/src/opspectre/
 │   ├── __init__.py
 │   ├── main.py                      # CLI entry point (argparse)
@@ -261,7 +261,7 @@ The point is: every tool should be available. Whether it's nmap for checking if 
 service is running, python for scripting, nuclei for scanning, or playwright for
 browser automation — everything should be there.
 
-See [opspectre-tools.md](opspectre-tools.md) for the full tool list.
+See [../playbooks/FULL_ARSENAL_README.md](../playbooks/FULL_ARSENAL_README.md) for the full tool list.
 
 ## Reporting
 
