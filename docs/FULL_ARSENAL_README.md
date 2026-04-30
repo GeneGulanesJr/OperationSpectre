@@ -5,24 +5,6 @@
 The Dockerfile includes ALL Kali Linux security tools (full Kali image)
 on top of the standard OPERATIONSPECTRE sandbox.
 
-## MCP Integration
-
-All tools are accessible through both:
-
-### CLI Mode (Traditional)
-```bash
-opspectre shell "nmap -sV target.com"
-opspectre file read /workspace/output/results.txt
-```
-
-### MCP Mode (AI Agents)
-```python
-nmap_scan(target="target.com")
-file_read(path="/workspace/output/results.txt")
-```
-
-The MCP server provides structured JSON responses and better integration with AI agents while maintaining full access to all Kali tools.
-
 ### Kali Metapackages
 - **kali-tools-web** - All web testing tools
 - **kali-tools-passwords** - All password cracking tools

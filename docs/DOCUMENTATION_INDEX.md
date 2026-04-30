@@ -7,10 +7,8 @@ This index provides a comprehensive overview of all OperationSpectre documentati
 ### Primary Documentation
 | Document | Description | Audience | Status |
 |----------|-------------|----------|---------|
-| [README.md](../README.md) | Main documentation with MCP integration | All users | ✅ Updated |
-| [MCP_USAGE.md](../MCP_USAGE.md) | Complete MCP tools reference and examples | AI developers | ✅ New |
-| [AUTO_STARTUP.md](../AUTO_STARTUP.md) | Auto-startup guide for MCP integration | System admins | ✅ New |
-| [QUICK_START.md](QUICK_START.md) | Quick start guide with both CLI and MCP modes | New users | ✅ Updated |
+| [README.md](../README.md) | Main documentation with pi-based execution | All users | ✅ Updated |
+| [QUICK_START.md](QUICK_START.md) | Quick start guide with both CLI and CLI modes | New users | ✅ Updated |
 
 ### Migration Documentation
 | Document | Description | Status |
@@ -21,9 +19,7 @@ This index provides a comprehensive overview of all OperationSpectre documentati
 ### Tool-Specific Documentation
 | Document | Description | Status |
 |----------|-------------|---------|
-| [opspectre-tools.md](opspectre-tools.md) | Complete tools list with MCP integration | ✅ Updated |
-| [BURP_SUITE_VERIFICATION.md](BURP_SUITE_VERIFICATION.md) | Burp Suite functionality with MCP support | ✅ Updated |
-| [FULL_ARSENAL_README.md](FULL_ARSENAL_README.md) | Kali tools documentation with MCP | ✅ Updated |
+| [opspectre-tools.md](opspectre-tools.md) | Complete tools list with pi-based execution | ✅ Updated |
 | [web-app-audit.md](web-app-audit.md) | Web application auditing guide | ✅ Updated |
 | [parallel_execution.md](parallel_execution.md) | Parallel execution optimization guide | ✅ New |
 | [PIPELINES.md](PIPELINES.md) | Complete pipeline documentation and usage | ✅ New |
@@ -32,34 +28,27 @@ This index provides a comprehensive overview of all OperationSpectre documentati
 | Document | Description | Status |
 |----------|-------------|---------|
 | [pentest-recon/SKILL.md](../../.pi/skills/pentest-recon/SKILL.md) | Traditional reconnaissance pipeline | ⚠️ Needs update |
-| [pentest-recon-mcp/SKILL.md](../../.pi/skills/pentest-recon-mcp/SKILL.md) | MCP-enhanced reconnaissance | ✅ New |
-| [pentest-recon-mcp/README.md](../../.pi/skills/pentest-recon-mcp/README.md) | MCP recon guide | ✅ New |
 
 ## 🎯 Quick Start Guides
 
 ### For New Users
-1. **Start Here**: [QUICK_START.md](QUICK_START.md) - Choose between CLI and MCP modes
+1. **Start Here**: [QUICK_START.md](QUICK_START.md) - Choose between CLI and CLI modes
 2. **Migration**: [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md) - If coming from old system
-3. **MCP Overview**: [MCP_USAGE.md](../MCP_USAGE.md) - For AI agent development
 4. **Automated Workflows**: [PIPELINES.md](PIPELINES.md) - Multi-step security pipelines
 
 ### For System Administrators
-1. **Auto-Startup**: [AUTO_STARTUP.md](../AUTO_STARTUP.md) - Production deployment
 2. **Migration Script**: [scripts/migrate.py](../scripts/migrate.py) - Automated migration
 3. **Docker Configuration**: [docker-compose.full.yml](../docker-compose.full.yml) - Container orchestration
 4. **Pipeline Management**: [scripts/pipeline_runner.py](../scripts/pipeline_runner.py) - Automated workflows
 5. **Performance Optimization**: [parallel_execution.md](parallel_execution.md) - 60-80% faster execution
 
 ### For AI Developers
-1. **MCP Tools**: [MCP_USAGE.md](../MCP_USAGE.md) - Complete tool reference
-2. **Recon Pipeline**: [pentest-recon-mcp/README.md](../../.pi/skills/pentest-recon-mcp/README.md) - Advanced workflows
 3. **Automated Pipelines**: [scripts/pipeline_runner.py](../scripts/pipeline_runner.py) - Multi-step workflows
 4. **Parallel Execution**: [parallel_execution.md](parallel_execution.md) - Performance optimization
-3. **Small Model Optimization**: README.md (MCP section) - Token savings and performance
 
 ## 🏗️ Architecture Documentation
 
-### Dual Mode Architecture
+### Pi-Only Architecture
 OperationSpectre now supports two execution modes:
 
 #### CLI Mode (Traditional)
@@ -70,32 +59,13 @@ Manual  Text   Fast        Full Kali Arsenal
                 CLI        Playbooks Embedded
 ```
 
-#### MCP Mode (AI Agents)
-```
-AI Agent → MCP Server → CLI → Docker Container → 50+ Tools
-    ↓         ↓         ↓      ↓              ↓
-60-80%    Structured Fast   50+ Tools        Full Kali Arsenal
-Token     JSON      CLI   Pre-installed    Playbooks Embedded
-Saving    Response  Backend Tools          MCP Integration
-```
-
 ### Integration Points
-- **AI Agent Integration**: MCP tools provide structured JSON responses
+- **AI Agent Integration**: pi-pentest-recon tools provide structured JSON responses
 - **CLI Backward Compatibility**: Existing CLI commands work unchanged
-- **Container Orchestration**: Docker Compose manages MCP server and sandbox
+- **Container Orchestration**: Docker Compose manages Docker sandbox and sandbox
 - **Monitoring**: Health checks, logging, and status management
 
 ## 🔧 Tool Reference
-
-### MCP Tools Available
-| Category | Tools | Description |
-|----------|-------|-------------|
-| **Network Scanning** | `nmap_scan`, `port_scan` | Port scanning with profiles |
-| **Subdomain Discovery** | `subdomain_discovery` | Subdomain enumeration |
-| **Web Reconnaissance** | `http_probe`, `nuclei_scan` | HTTP probing and vuln scanning |
-| **OSINT** | `osint_passive` | Passive reconnaissance |
-| **File Operations** | `file_read`, `file_write` | File management |
-| **Sandbox** | `sandbox_status` | Container management |
 
 ### CLI Tools Available
 | Category | Tools | Description |
@@ -110,11 +80,9 @@ Saving    Response  Backend Tools          MCP Integration
 
 ### Token Savings
 - **Traditional CLI**: ~24,000 tokens per step (subprocess overhead)
-- **MCP Integration**: ~6,000-8,000 tokens total (no subprocess overhead)
 - **Savings**: 60-80% reduction in multi-tool workflows
 
 ### Response Comparison
-| Feature | CLI Mode | MCP Mode |
 |---------|----------|----------|
 | Response Format | Raw text | Structured JSON |
 | Error Handling | Basic | Advanced with retry |
@@ -160,12 +128,9 @@ curl http://localhost:8000/tools
 3. Explore basic tools (nmap, file operations)
 
 ### For AI Developers
-1. Read [MCP_USAGE.md](../MCP_USAGE.md) 
-2. Try [pentest-recon-mcp](../../.pi/skills/pentest-recon-mcp/) skill
 3. Explore token savings and performance benefits
 
 ### For System Administrators
-1. Review [AUTO_STARTUP.md](../AUTO_STARTUP.md)
 2. Use [migration script](../scripts/migrate.py)
 3. Set up monitoring and logging
 
@@ -174,7 +139,7 @@ curl http://localhost:8000/tools
 ### Common Issues
 - **Port conflicts**: Use `./scripts/manage.py start --port 8001`
 - **Docker issues**: `docker info` and `docker logs opspectre-sandbox`
-- **MCP server**: `curl http://localhost:8000/health`
+- **Docker sandbox**: `curl http://localhost:8000/health`
 - **Permissions**: `chmod +x scripts/*.py`
 
 ### Logs Location
@@ -183,16 +148,16 @@ curl http://localhost:8000/tools
 ./scripts/manage.py logs --follow
 
 # Specific service logs
-./scripts/manage.py logs --service opspectre-mcp --follow
+  - Service logs: `docker-compose -f docker-compose.full.yml logs -f`
 ./scripts/manage.py logs --service opspectre-sandbox --follow
 ```
 
 ## 📈 Roadmap
 
 ### Completed Features
-- ✅ MCP server implementation
+- ✅ Docker sandbox implementation
 - ✅ Auto-startup system
-- ✅ 19+ MCP tools
+- ✅ 19+ pi-pentest-recon tools
 - ✅ Complete documentation update
 - ✅ Migration guide and script
 - ✅ Performance optimization
@@ -209,10 +174,8 @@ curl http://localhost:8000/tools
 ## 📞 Support
 
 ### Documentation Resources
-1. **Primary**: README.md and MCP_USAGE.md
 2. **Migration**: MIGRATION_GUIDE.md and scripts/migrate.py
 3. **Tools**: opspectre-tools.md
-4. **Examples**: pentest-recon-mcp/README.md
 
 ### Community Support
 - GitHub Issues: Report bugs and request features
@@ -223,8 +186,6 @@ curl http://localhost:8000/tools
 
 **Quick Navigation:**
 - [Quick Start](QUICK_START.md) - Get started in 5 minutes
-- [MCP Usage](../MCP_USAGE.md) - Complete tool reference
 - [Migration Guide](MIGRATION_GUIDE.md) - Move to new system
 - [Tools Reference](opspectre-tools.md) - All available tools
-- [Auto Startup](../AUTO_STARTUP.md) - Production deployment
 - [Main README](../README.md) - Complete overview

@@ -1,7 +1,7 @@
 """Sandbox lifecycle logic.
 
 Pure execution layer — returns structured dicts, no console output.
-Used by commands/sandbox.py (CLI) and mcp_server.py (MCP protocol).
+Used by commands/sandbox.py (CLI) and  (Docker sandbox).
 """
 
 from typing import Any

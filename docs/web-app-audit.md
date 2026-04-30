@@ -4,15 +4,6 @@ The web-app-audit skill provides comprehensive security scanning for web applica
 
 ## Architecture Integration
 
-### MCP Mode (AI Agents)
-```python
-# MCP integration for web app auditing
-nuclei_scan(targets="https://target.com", severity="medium,high,critical")
-sqlmap(url="https://target.com/page?id=1")
-http_probe(targets="https://target.com")
-burp_scan(url="https://target.com")  # MCP wrapper
-```
-
 ### CLI Mode (Traditional)
 ```bash
 # Manual web app auditing

@@ -2,7 +2,7 @@
 
 CLI-facing entry points that delegate to opspectre.core._runtime (DockerRuntime).
 commands/ handles console presentation; core/ returns structured dicts for
-programmatic use (MCP server, pipelines).
+programmatic use (Docker sandbox, pipelines).
 """
 
 from typing import Any

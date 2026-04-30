@@ -17,14 +17,6 @@ OPSPECTRE: executes in Docker container, returns output
 User: parses and presents results
 ```
 
-### MCP Mode (AI Agents)
-```
-AI Agent: needs to run reconnaissance
-AI Agent: calls nmap_scan(target="target.com")
-MCP Server: executes CLI command in Docker container
-AI Agent: receives structured JSON response
-```
-
 ## Architecture
 
 ```

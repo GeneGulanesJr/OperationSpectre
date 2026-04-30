@@ -290,7 +290,6 @@ steps:
 ## Integration with Other Systems
 
 ### AI Agent Workflows
-Pipelines can be called from AI agents using the MCP server:
 ```python
 # AI agent can trigger pipelines
 pipeline_result = run_pipeline(

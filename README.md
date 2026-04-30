@@ -69,7 +69,6 @@ OperationSpectre turns **pi** into a security operations workstation. It provide
 - 🐳 **Docker sandbox** — Kali Linux container with 50+ security tools pre-installed
 - 🎯 **Pi skills** — Domain-specific instructions for recon, exploitation, web audits, and CTF
 - 📋 **Playbooks** — Automated OWASP Top 10, nmap, OSINT, and pentest workflows
-- 🔧 **MCP server** — Structured tool access for any AI agent or LLM
 
 It is **not** an agent itself — it's the toolkit that powers agents.
 
@@ -109,14 +108,6 @@ If you want to use the sandbox without pi:
 uv sync
 opspectre init
 opspectre run "nmap -sV 192.168.1.1"
-```
-
-### MCP Server (For Non-Pi AI Agents)
-
-For other AI agents or LLMs, the MCP server provides structured tool access:
-
-```bash
-python scripts/mcp_server.py --host localhost --port 8000
 ```
 
 ---
@@ -259,7 +250,7 @@ OperationSpectre/
 │   ├── exploits/
 │   └── owasp/
 ├── scripts/                 # Pipeline runners & automation
-└── src/opspectre/           # Python source (CLI, MCP server, sandbox)
+└── src/opspectre/           # Python source (CLI, sandbox)
 ```
 
 ---

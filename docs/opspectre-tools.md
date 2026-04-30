@@ -10,18 +10,8 @@ Manual  Text   Fast        Full Kali Arsenal
                 CLI        Playbooks Embedded
 ``` 
 
-### MCP Mode (AI Agents)
-```
-AI Agent → MCP Server → CLI → Docker Container → 50+ Tools
-    ↓         ↓         ↓      ↓              ↓
-60-80%    Structured Fast   50+ Tools        Full Kali Arsenal
-Token     JSON      CLI   Pre-installed    Playbooks Embedded
-Saving    Response  Backend Tools          MCP Integration
-```
-
 ## Security & Pentest Tools
 
-| Tool | Category | MCP Mode | CLI Mode | Description |
 |------|----------|----------|----------|-------------|
 | nmap | Network Scanner | ✅ | ✅ | Port scanning, service detection, OS fingerprinting |
 | nping | Network Probing | ✅ | ✅ | Advanced packet generation and analysis |

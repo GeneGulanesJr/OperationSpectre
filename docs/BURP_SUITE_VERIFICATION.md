@@ -4,16 +4,6 @@
 
 ### Architecture Integration
 
-#### MCP Mode (AI Agents)
-```python
-# MCP integration for Burp Suite
-burp_scan(url="https://target.com")  # Headless scan
-burp_spider(url="https://target.com")  # Spidering
-burp_proxy_intercept()  # Proxy configuration
-```
-
-#### CLI Mode (Traditional)
-```bash
 # Manual Burp Suite usage
 opspectre shell "burpsuite --headless --project-file=/workspace/scans/burp.project"
 opspectre shell "curl -x localhost:8080 https://target.com"

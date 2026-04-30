@@ -1,6 +1,6 @@
 """Core shared logic for OperationSpectre.
 
-Both CLI commands and MCP tools import from here.
+Both CLI commands and pi skills import from here.
 No subprocess calls -- everything goes through DockerRuntime directly.
 All executions are logged for agent review.
 """

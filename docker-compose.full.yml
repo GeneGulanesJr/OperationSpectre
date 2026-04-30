@@ -44,46 +44,6 @@ services:
       retries: 3
       start_period: 40s
 
-  # =========================================================================
-  # MCP Server
-  # =========================================================================
-  opspectre-mcp:
-    build:
-      context: .
-      dockerfile: containers/Dockerfile.mcp
-    container_name: opspectre-mcp
-    hostname: opspectre-mcp
-    networks:
-      - opspectre-network
-
-    # ===== SECURITY: Bind to localhost only =====
-    ports:
-      - "127.0.0.1:8000:8000"
-
-    # ===== SECURITY: Capability restrictions =====
-    cap_drop:
-      - ALL
-    security_opt:
-      - no-new-privileges:true
-
-    # ===== SECURITY: Resource limits =====
-    pids_limit: 128
-    mem_limit: 1g
-
-    environment:
-      - HOST=0.0.0.0
-      - PORT=8000
-      - LOG_LEVEL=INFO
-    depends_on:
-      opspectre-sandbox:
-        condition: service_healthy
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
 
   # =========================================================================
   # Nginx Reverse Proxy (Optional)
@@ -114,8 +74,6 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./ssl:/etc/nginx/ssl:ro
-    depends_on:
-      - opspectre-mcp
     restart: unless-stopped
 
 networks:

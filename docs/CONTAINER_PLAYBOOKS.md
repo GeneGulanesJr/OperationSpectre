@@ -5,15 +5,6 @@ All playbooks are embedded directly in the Docker container. Any AI agent using 
 
 ## Architecture Integration
 
-### MCP Mode (AI Agents)
-```
-AI Agent → MCP Server → CLI → Docker Container
-    ↓         ↓         ↓      ↓
-60-80%    Structured Fast   50+ Tools
-Token     JSON      CLI   Playbooks
-Saving    Response  Backend Embedded
-```
-
 ### CLI Mode (Manual)
 ```
 User → CLI → Docker Container

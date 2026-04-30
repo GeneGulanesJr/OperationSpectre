@@ -24,31 +24,18 @@ pipeline_runner.py (Python, no LLM context)
 
 **Key insight:** The manager (pipeline_runner.py) is pure Python. It has zero LLM context usage. Each worker pi session only sees 1 tool call + summaries of previous steps.
 
-## MCP Integration (NEW)
+## 📦 Pi-Based Pipeline (Default)
 
-When OperationSpectre MCP server is available, the pipeline can use structured MCP tools instead of CLI commands for 60-80% token savings:
+OperationSpectre uses **pi skills** — domain-specific instructions that guide the AI agent through security workflows using the Docker sandbox. No separate MCP server needed.
 
-```
-# Traditional CLI approach (high token usage):
+```bash
+# Run a pipeline step-by-step
 opspectre run "nmap -sV target.com"
 opspectre shell "subfinder -d target.com"
 opspectre shell "nuclei -l targets.txt"
-
-# MCP approach (low token usage):
-nmap_scan(target="target.com")
-subdomain_discovery(domain="target.com")
-nuclei_scan(targets=live_hosts)
 ```
 
-### MCP vs CLI Comparison
-
-| Metric | CLI Approach | MCP Approach |
-|--------|-------------|--------------|
-| **Tokens per step** | ~8,000 | ~2,000-3,000 |
-| **Response format** | Raw CLI output | Structured JSON |
-| **Error handling** | Manual parsing | Automatic retry |
-| **Tool composition** | Shell commands | Native chaining |
-| **State management** | File I/O required | In-memory context |
+Each step executes inside the Kali sandbox with full tool access.
 
 ## Usage
 
@@ -88,23 +75,6 @@ python3 scripts/pipeline_runner.py scripts/pipelines/parallel_pentest.yaml \
     --step-timeout 600
 ```
 
-### MCP Mode (Enhanced Performance)
-
-When MCP server is running, pipelines automatically use optimized tools:
-
-```bash
-# Start MCP server (optional but recommended)
-python scripts/mcp_server.py --host localhost --port 8000 &
-
-# CTF web challenge with MCP optimization
-python3 scripts/pipeline_runner.py scripts/pipelines/ctf-web.yaml --target http://10.10.10.10:8080
-
-# The pipeline will automatically use MCP tools when available:
-# - nmap_scan() instead of "opspectre run 'nmap -sV $target'"
-# - subdomain_discovery() instead of "opspectre shell 'subfinder -d $domain'"
-# - nuclei_scan() instead of "opspectre shell 'nuclei -l $targets'"
-```
-
 ## Available Pipelines
 
 ### Sequential Pipelines
@@ -120,7 +90,6 @@ python3 scripts/pipeline_runner.py scripts/pipelines/ctf-web.yaml --target http:
 | Pipeline | File | Purpose | Performance |
 |----------|------|---------|-------------|
 | Parallel Pentest | `scripts/pipelines/parallel_pentest.yaml` | Optimized full pentest with concurrent execution | **~5 minutes** |
-| MCP Recon | `scripts/pipelines/mcp-recon.yaml` | MCP-enhanced reconnaissance with token optimization | **~3 minutes** |
 
 ## Creating Custom Pipelines
 
@@ -186,23 +155,6 @@ Each worker pi subprocess receives at most:
 | LLM response (summary) | ~1,000 |
 | **Total per step** | **~8,000** |
 
-### Optimized MCP Mode (when available)
-
-When MCP server is running, context usage is significantly reduced:
-
-| Component | Tokens (est.) |
-|-----------|---------------|
-| System prompt + skill preamble | ~2,000 |
-| Previous step summaries (deps only) | ~1,500 |
-| MCP tool calls | ~500 |
-| Structured JSON responses | ~1,000 |
-| LLM response (summary) | ~1,000 |
-| **Total per step** | **~6,000** |
-
-**Final report step** receives all summaries (~15,000 tokens) — still well within 100k.
-
-**Savings:** ~25% token reduction per step with MCP integration.
-
 ## Tips
 
 ### General Tips
@@ -214,22 +166,8 @@ When MCP server is running, context usage is significantly reduced:
 - Worker pi sessions use `--no-session` — no session files accumulate on disk
 - Add `--step-timeout 600` for slow steps (full port scans, etc.)
 
-### MCP Optimization Tips
-
-- **Enable MCP server** for 25-40% token savings in multi-tool workflows
-- **Use structured tool names** in prompts: `nmap_scan`, `subdomain_discovery`, `nuclei_scan`
-- **Batch similar operations** to reduce tool calls
-- **Handle errors gracefully** with automatic retry logic
-- **Cache results** when possible to avoid redundant MCP calls
-
 ### Performance Optimization
 
-For small models (9B context), MCP integration provides significant benefits:
-
-1. **Token savings**: 25-40% reduction in context usage
-2. **Better error handling**: Automatic retry and structured responses
-3. **State persistence**: Results available without file I/O
-4. **Tool composition**: Native chaining instead of shell scripting
 
 Example workflow comparison:
 
@@ -240,10 +178,8 @@ steps:
     prompt: "Run nmap scan on {TARGET} and save results"
     command: "opspectre run 'nmap -sV {TARGET}'"
 
-# MCP-optimized workflow:
 steps:
   - id: nmap_scan
     prompt: "Run nmap scan on {TARGET} and save results"
-    # No command needed — LLM will use nmap_scan MCP tool
     # 60% fewer tokens, structured response
 ```

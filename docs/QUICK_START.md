@@ -2,18 +2,6 @@
 
 ## 🚀 Quick Start Options
 
-### Option 1: MCP Mode (Recommended for AI Agents)
-```bash
-# Start everything with MCP integration
-./scripts/manage.py start
-
-# Check status
-./scripts/manage.py status
-
-# View logs
-./scripts/manage.py logs --follow
-```
-
 ### Option 2: CLI Mode (Traditional)
 ```bash
 # Initialize sandbox
@@ -38,7 +26,7 @@ python3 scripts/pipeline_runner.py scripts/pipelines/ctf-web.yaml --target http:
 
 ### Option 4: Docker Compose
 ```bash
-# Start with MCP server
+# Start Docker stack (sandbox + proxy)
 docker-compose -f docker-compose.full.yml up -d
 
 # Check status
@@ -54,44 +42,7 @@ User → CLI → Docker Container
 Manual  Text    50+ Tools
 ```
 
-### MCP Mode (AI Optimized)
-```
-AI Agent → MCP Server → CLI → Docker Container
-    ↓         ↓         ↓      ↓
-60-80%    Structured Fast   50+ Tools
-Token     JSON      CLI   Pre-installed
-Saving    Response  Backend  Tools
-```
-
-## 📊 MCP Tools Available
-
-| Category | Tools | Description |
-|----------|-------|-------------|
-| **Network Scanning** | `nmap_scan`, `port_scan` | Port scanning with profiles |
-| **Subdomain Discovery** | `subdomain_discovery` | Subdomain enumeration |
-| **Web Reconnaissance** | `http_probe`, `nuclei_scan` | HTTP probing and vuln scanning |
-| **OSINT** | `osint_passive` | Passive reconnaissance |
-| **File Operations** | `file_read`, `file_write` | File management |
-| **Sandbox** | `sandbox_status` | Container management |
-
 ## 🛠️ Usage Examples
-
-### MCP Mode (AI Agents)
-```python
-# Python integration
-from pi_pentest_recon_mcp import run_reconnaissance
-
-# Execute reconnaissance
-results = run_reconnaissance("example.com")
-print(f"Found {results['summary']['subdomains_found']} subdomains")
-
-# Direct MCP tool calls
-from pi_pentest_recon_mcp import MCPReconExtension
-
-extension = MCPReconExtension()
-osint = extension.osint_passive("example.com", method="ct")
-subdomains = extension.subdomain_discovery("example.com")
-```
 
 ### CLI Mode (Manual Usage)
 ```bash
@@ -151,16 +102,6 @@ aircrack-ng -w /usr/share/wordlists/rockyou.txt /workspace/output/loot/handshake
 
 ## 📁 Where Outputs Go
 
-### MCP Mode
-```
-/workspace/output/
-├── recon/           # Reconnaissance results
-├── scans/          # Scan outputs
-├── osint/          # OSINT collection
-├── screenshots/    # Visual recon
-└── final_report.txt # Summary report
-```
-
 ### CLI Mode
 ```
 opspectre_runs/
@@ -171,13 +112,12 @@ opspectre_runs/
 ```
 
 > **Note:** Results automatically save to both `./output/` and `opspectre_runs/` directories.
-> WSL symlinks are handled automatically by the MCP server for Windows integration.
 
 ## 🔧 Server Management
 
 ### Start/Stop Services
 ```bash
-# Start all services (MCP + sandbox)
+# Start all services (sandbox + proxy)
 ./scripts/manage.py start
 
 # Stop all services
@@ -188,23 +128,6 @@ opspectre_runs/
 
 # Check status
 ./scripts/manage.py status
-```
-
-### MCP Server Management
-```bash
-# Start MCP server manually
-python scripts/mcp_server.py --host localhost --port 8000
-
-# Check MCP health
-curl http://localhost:8000/health
-
-# List MCP tools
-curl http://localhost:8000/tools
-
-# Call MCP tool
-curl -X POST http://localhost:8000/tools/call \
-  -H "Content-Type: application/json" \
-  -d '{"tool_name": "sandbox_status", "arguments": {}}'
 ```
 
 ### Container Management
@@ -221,15 +144,6 @@ docker logs opspectre-sandbox
 
 ## 🔍 Health Checks
 
-### MCP Server
-```bash
-# Health check
-curl http://localhost:8000/health
-
-# Tool availability
-curl http://localhost:8000/tools
-```
-
 ### CLI Interface
 ```bash
 # Sandbox status
@@ -243,7 +157,6 @@ opspectre --version
 
 ### Common Issues
 
-1. **MCP Server Not Starting**
 ```bash
 # Check if port is in use
 lsof -i :8000
@@ -278,8 +191,8 @@ docker exec opspectre-sandbox ls -la /usr/local/bin/
 
 ### Logs Monitoring
 ```bash
-# MCP server logs
-./scripts/manage.py logs --service opspectre-mcp --follow
+# Service logs (proxy + sandbox)
+docker-compose -f docker-compose.full.yml logs -f
 
 # Sandbox logs
 ./scripts/manage.py logs --service opspectre-sandbox --follow
@@ -291,8 +204,6 @@ docker exec opspectre-sandbox ls -la /usr/local/bin/
 ## 📚 Next Steps
 
 ### For AI Agents
-1. Read `MCP_USAGE.md` for complete tool reference
-2. Try `pentest-recon-mcp` skill for advanced reconnaissance
 3. Explore `AUTO_STARTUP.md` for production deployment
 
 ### For Manual Usage
@@ -308,4 +219,3 @@ docker exec opspectre-sandbox ls -la /usr/local/bin/
 
 ---
 
-**Note**: MCP mode provides 60-80% token savings for small models while maintaining full functionality. Choose CLI mode for manual usage and MCP mode for AI agent workflows.
