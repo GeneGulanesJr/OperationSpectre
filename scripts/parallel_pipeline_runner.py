@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Parallel Pipeline Runner - Executes pipeline steps concurrently where possible
-Usage: python3 scripts/parallel_pipeline_runner.py scripts/pipelines/pentest.yaml --target example.com
+Usage: python3 scripts/parallel_pipeline_runner.py pipelines/pentest.yaml --target example.com
 """
 
 import argparse

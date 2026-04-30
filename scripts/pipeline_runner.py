@@ -7,9 +7,9 @@ for each step. Each worker gets a clean context — the 9B model never
 accumulates tool output across steps.
 
 Usage:
-    python3 scripts/pipeline_runner.py scripts/pipelines/ctf-web.yaml --target http://10.10.10.10
-    python3 scripts/pipeline_runner.py scripts/pipelines/ctf-crypto.yaml --input "ZmxhZ3toZWxsb30="
-    python3 scripts/pipeline_runner.py scripts/pipelines/pentest.yaml --target example.com
+    python3 scripts/pipeline_runner.py pipelines/ctf-web.yaml --target http://10.10.10.10
+    python3 scripts/pipeline_runner.py pipelines/ctf-crypto.yaml --input "ZmxhZ3toZWxsb30="
+    python3 scripts/pipeline_runner.py pipelines/pentest.yaml --target example.com
 
 Architecture:
     Manager (this script) — pure Python, no LLM context
@@ -435,19 +435,19 @@ def main() -> None:
         epilog="""
 Examples:
   # CTF web challenge
-  python3 scripts/pipeline_runner.py scripts/pipelines/ctf-web.yaml --target http://10.10.10.10:8080
+  python3 scripts/pipeline_runner.py pipelines/ctf-web.yaml --target http://10.10.10.10:8080
 
   # CTF crypto challenge
-  python3 scripts/pipeline_runner.py scripts/pipelines/ctf-crypto.yaml --input "ZmxhZ3toZWxsb30="
+  python3 scripts/pipeline_runner.py pipelines/ctf-crypto.yaml --input "ZmxhZ3toZWxsb30="
 
   # Full pentest
-  python3 scripts/pipeline_runner.py scripts/pipelines/pentest.yaml --target example.com
+  python3 scripts/pipeline_runner.py pipelines/pentest.yaml --target example.com
 
   # Parallel execution (faster)
-  python3 scripts/pipeline_runner.py scripts/pipelines/pentest.yaml --target example.com --parallel
+  python3 scripts/pipeline_runner.py pipelines/pentest.yaml --target example.com --parallel
 
   # With specific model
-  python3 scripts/pipeline_runner.py scripts/pipelines/ctf-web.yaml --target http://10.10.10.10 --model local/llama3:9b
+  python3 scripts/pipeline_runner.py pipelines/ctf-web.yaml --target http://10.10.10.10 --model local/llama3:9b
         """,
     )
 
