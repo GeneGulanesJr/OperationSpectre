@@ -1,0 +1,5 @@
+#!/bin/bash
+# Hashcat wrapper
+# Usage: hashcat-run -m hash_type hashes.txt wordlist.txt
+hashcat "$@" --force
+hashcat "$@" --show

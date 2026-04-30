@@ -1,0 +1,68 @@
+# MCP Server Dockerfile for OperationSpectre
+# Based on the main OperationSpectre Dockerfile but optimized for MCP server
+
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create app directory
+WORKDIR /app
+
+# Copy project files
+COPY . /app/
+
+# Install Python dependencies
+RUN pip install --no-cache-dir \
+    fastapi==0.104.1 \
+    uvicorn[standard]==0.24.0 \
+    pydantic==2.5.0 \
+    requests==2.31.0 \
+    httpx==0.25.2
+
+# Install main operation tools (same as main Dockerfile)
+RUN apt-get update && apt-get install -y \
+    nmap \
+    subfinder \
+    httpx \
+    nuclei \
+    gowitness \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Go tools
+RUN wget -O /usr/local/bin/subfinder https://github.com/projectdiscovery/subfinder/releases/latest/download/subfinder-linux-amd64 && \
+    chmod +x /usr/local/bin/subfinder && \
+    wget -O /usr/local/bin/httpx https://github.com/projectdiscovery/httpx/releases/latest/download/httpx-linux-amd64 && \
+    chmod +x /usr/local/bin/httpx && \
+    wget -O /usr/local/bin/nuclei https://github.com/projectdiscovery/nuclei/releases/latest/download/nuclei-linux-amd64 && \
+    chmod +x /usr/local/bin/nuclei
+
+# Install gowitness
+RUN wget -O /tmp/gowitness.tar.gz https://github.com/sensepost/gowitness/releases/latest/download/gowitness-linux-amd64.tar.gz && \
+    tar -xzf /tmp/gowitness.tar.gz -C /tmp && \
+    mv /tmp/gowitness-linux-amd64/gowitness /usr/local/bin/ && \
+    chmod +x /usr/local/bin/gowitness && \
+    rm -rf /tmp/gowitness*
+
+# Create necessary directories
+RUN mkdir -p /workspace/output /workspace/recon /workspace/osint /workspace/web-audit /workspace/screenshots
+
+# Copy scripts
+COPY scripts/ /workspace/scripts/
+
+# Set up environment
+ENV PATH="/workspace/scripts:${PATH}"
+
+# Expose MCP server port
+EXPOSE 8000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Default command
+CMD ["python", "scripts/mcp_server.py", "--host", "0.0.0.0", "--port", "8000"]

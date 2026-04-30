@@ -1,0 +1,5 @@
+#!/bin/bash
+# John the Ripper wrapper
+# Usage: john-run --wordlist=wordlist.txt hashes.txt
+john "$@"
+john --show "$@"

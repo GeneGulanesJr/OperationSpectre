@@ -1,0 +1,128 @@
+version: '3.8'
+
+services:
+  # =========================================================================
+  # OperationSpectre Sandbox
+  # =========================================================================
+  opspectre-sandbox:
+    build:
+      context: .
+      dockerfile: containers/Dockerfile
+    container_name: opspectre-sandbox
+    hostname: opspectre-sandbox
+    networks:
+      - opspectre-network
+
+    # ===== SECURITY: Minimal volume mounts =====
+    volumes:
+      - ./scripts:/workspace/scripts:ro
+      - ./output:/workspace/output:rw,noexec,nosuid,nodev
+
+    # ===== SECURITY: Capability restrictions =====
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_RAW
+      - NET_BIND_SERVICE
+    security_opt:
+      - no-new-privileges:true
+
+    # ===== SECURITY: Resource limits =====
+    pids_limit: 256
+    mem_limit: 2g
+    cpus: 1.0
+
+    environment:
+      - DISPLAY=${DISPLAY:-}
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "opspectre", "sandbox", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # =========================================================================
+  # MCP Server
+  # =========================================================================
+  opspectre-mcp:
+    build:
+      context: .
+      dockerfile: containers/Dockerfile.mcp
+    container_name: opspectre-mcp
+    hostname: opspectre-mcp
+    networks:
+      - opspectre-network
+
+    # ===== SECURITY: Bind to localhost only =====
+    ports:
+      - "127.0.0.1:8000:8000"
+
+    # ===== SECURITY: Capability restrictions =====
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+    # ===== SECURITY: Resource limits =====
+    pids_limit: 128
+    mem_limit: 1g
+
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - LOG_LEVEL=INFO
+    depends_on:
+      opspectre-sandbox:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # =========================================================================
+  # Nginx Reverse Proxy (Optional)
+  # =========================================================================
+  opspectre-proxy:
+    image: nginx:alpine
+    container_name: opspectre-proxy
+    networks:
+      - opspectre-network
+
+    # ===== SECURITY: Bind to localhost only =====
+    ports:
+      - "127.0.0.1:80:80"
+      - "127.0.0.1:443:443"
+
+    # ===== SECURITY: Capability restrictions =====
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    security_opt:
+      - no-new-privileges:true
+
+    # ===== SECURITY: Resource limits =====
+    pids_limit: 64
+    mem_limit: 256m
+
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - opspectre-mcp
+    restart: unless-stopped
+
+networks:
+  opspectre-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+    # NOTE: internal: true is NOT set — internet access is allowed
+    # The bridge isolates containers from the host network but permits outbound internet

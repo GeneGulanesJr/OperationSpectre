@@ -1,0 +1,7 @@
+{
+  "name": "opspectre-sandbox",
+  "version": "1.0.0",
+  "description": "Pi extension that routes built-in tools to the OperationSpectre Docker sandbox",
+  "private": true,
+  "dependencies": {}
+}

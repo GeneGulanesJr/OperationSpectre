@@ -1,0 +1,4 @@
+#!/bin/bash
+# Metasploit wrapper - non-interactive mode
+# Usage: msf-run "use exploit/...; set RHOSTS x.x.x.x; exploit"
+echo "$1" | msfconsole -q -r /dev/stdin

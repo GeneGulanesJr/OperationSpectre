@@ -1,0 +1,4 @@
+#!/bin/bash
+# z3-solver wrapper - Constraint solver for crypto CTFs
+# Usage: z3-run script.py
+python3 "$@"

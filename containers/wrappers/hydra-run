@@ -1,0 +1,5 @@
+#!/bin/bash
+# Hydra wrapper with output parsing
+# Usage: hydra-run -l user -P wordlist.txt target service
+hydra "$@" -o /tmp/hydra-results.txt
+cat /tmp/hydra-results.txt

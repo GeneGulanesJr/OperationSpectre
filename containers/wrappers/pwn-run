@@ -1,0 +1,4 @@
+#!/bin/bash
+# pwntools wrapper - Launches pwntools Python environment
+# Usage: pwn-run script.py
+python3 "$@"

@@ -1,0 +1,4 @@
+#!/bin/bash
+# Aircrack-ng wrapper
+# Usage: aircrack-run -w wordlist.txt capture.cap
+aircrack-ng "$@"

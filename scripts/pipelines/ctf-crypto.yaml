@@ -1,0 +1,55 @@
+# CTF Pipeline — Crypto challenges
+# Usage: python3 scripts/pipeline_runner.py scripts/pipelines/ctf-crypto.yaml --input "encrypted_string_here"
+
+name: CTF Crypto Challenge
+description: Automated crypto analysis pipeline
+
+variables:
+  INPUT: ""           # --input overrides this
+  OUTPUT_DIR: "/workspace/output/pipeline-crypto"
+
+steps:
+  - id: identify
+    name: Identify Cipher/Encoding
+    prompt: |
+      Analyze this ciphertext and identify what type of cipher or encoding it is:
+      {INPUT}
+
+      Run: echo '{INPUT}' | wc -c && echo '{INPUT}' | grep -oE '[A-Za-z0-9+/=]' | wc -l
+      Also try: echo '{INPUT}' | base64 -d 2>/dev/null; echo; echo '{INPUT}' | xxd -r -p 2>/dev/null
+
+      Print ONLY: length, character set detected, likely encoding/cipher type, and any successful decode.
+      Max 10 lines.
+
+  - id: decode_multi
+    name: Multi-Decoder Attempt
+    prompt: |
+      Try decoding this with the ctf_crypto_encoding playbook function:
+      Run: bash -c 'source /opt/playbooks/ctf-playbook.sh && ctf_crypto_encoding "{INPUT}"'
+
+      Also try: bash -c 'source /opt/playbooks/ctf-playbook.sh && ctf_crypto_caesar "{INPUT}"'
+
+      Print ONLY successful decodings. Max 15 lines.
+    depends_on: [identify]
+
+  - id: xor_analysis
+    name: XOR Analysis
+    prompt: |
+      If the previous steps didn't find a flag, try XOR analysis.
+      Convert the input to hex first, then:
+      Run: bash -c 'source /opt/playbooks/ctf-playbook.sh && ctf_crypto_xor "$(echo -n "{INPUT}" | xxd -p | tr -d \\n)"'
+
+      Print ONLY any readable results. Max 10 lines.
+    depends_on: [decode_multi]
+
+  - id: final_report
+    name: Crypto Analysis Report
+    prompt: |
+      Summarize all crypto analysis results.
+      If the flag was found, output it clearly as: FLAG{...}
+      If not found, list what was tried and what the remaining possibilities are.
+
+      Save to {OUTPUT_DIR}/REPORT.md
+      Print the full report.
+    depends_on: [identify, decode_multi, xor_analysis]
+    is_report: true

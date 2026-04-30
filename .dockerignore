@@ -1,0 +1,43 @@
+# Git
+.git
+.gitignore
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.eggs/
+
+# Node
+node_modules/
+
+# Go
+*.exe
+
+# Build artifacts
+output/
+*.tar
+*.tar.gz
+
+# Docker
+containers/data/
+
+# Pi agent
+.pi/
+
+# Misc
+*.log
+*.md
+LICENSE

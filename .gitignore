@@ -1,0 +1,90 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+*.whl
+
+# Virtual Environment
+venv/
+.venv/
+env/
+.env
+.env.*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+Thumbs.db:encryptable
+Desktop.ini
+
+# Security tool artifacts
+.msf4/
+.nexploit/
+nuclei-config/
+*.nmap
+*.gnmap
+*.nessus
+
+# Testing
+.tox/
+.coverage
+.cache
+.pytest_cache/
+htmlcov/
+coverage.xml
+.pytest_results/
+
+# Security scan outputs
+opspectre_runs/
+scan_runs/
+output/
+output_new/
+workspace/
+containers/data/
+*.pcap
+*.log
+
+# Pre-commit cache
+.pre-commit-cache/
+
+# Ruff / Linting
+.ruff_cache/
+
+# Pyright
+.pyright/
+
+# Misc
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+*.tmp
+*.temp
+*.orig
+
+# Cursor
+.cursor/
+
+# Docker
+.docker/
+.docker-cache/
+
+# Pi local settings
+.pi/settings.json
+
+# Debug / scratch scripts
+scripts/scratch/

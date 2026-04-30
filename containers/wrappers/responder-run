@@ -1,0 +1,4 @@
+#!/bin/bash
+# Responder wrapper
+# Usage: responder-run -I eth0 -wrf
+responder.py "$@"

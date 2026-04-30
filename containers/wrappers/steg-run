@@ -1,0 +1,14 @@
+#!/bin/bash
+# steghide wrapper - Extract with common passwords
+# Usage: steg-run extract -sf image.png [-p password]
+if [ "$1" = "crack" ]; then
+    shift
+    echo "[steg-run] Running stegseek dictionary attack..."
+    stegseek "$@"
+else
+    steghide "$@"
+    # Also try empty password if no -p given
+    if ! echo "$@" | grep -q "\-p"; then
+        steghide extract -sf "$(echo "$@" | grep -oE '[^ ]*\.(png|jpg|jpeg|bmp|wav|au)' | tail -1)" -p "" 2>/dev/null || true
+    fi
+fi

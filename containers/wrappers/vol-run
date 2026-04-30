@@ -1,0 +1,4 @@
+#!/bin/bash
+# Volatility3 wrapper - Memory forensics
+# Usage: vol-run -f memory.dmp <plugin> [args]
+python3 -m volatility3 "$@"

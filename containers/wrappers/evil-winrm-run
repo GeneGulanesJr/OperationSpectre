@@ -1,0 +1,4 @@
+#!/bin/bash
+# Evil-WinRM wrapper
+# Usage: evil-winrm-run -i IP -u user -p pass
+evil-winrm "$@"

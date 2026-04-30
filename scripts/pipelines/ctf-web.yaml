@@ -1,0 +1,83 @@
+# CTF Pipeline — Fully automated, one tool per pi subprocess
+# Usage: python3 scripts/pipeline_runner.py scripts/pipelines/ctf-web.yaml --target http://ctf.example.com:8080
+
+name: CTF Web Challenge
+description: Full web CTF pipeline — recon, enumerate, attack, flag capture
+
+# Global vars available in all steps as {TARGET}, {DOMAIN}, etc.
+variables:
+  TARGET: ""        # --target overrides this
+  DOMAIN: ""        # auto-extracted from TARGET if empty
+  OUTPUT_DIR: "/workspace/output/pipeline"
+
+steps:
+  - id: recon
+    name: Port Scan & Service Detection
+    prompt: |
+      Run a quick nmap service scan on {TARGET}.
+      Save full output to {OUTPUT_DIR}/nmap.txt
+      Then print ONLY a summary: open ports, services, and anything interesting.
+      No more than 15 lines.
+    command: nmap -sV -sC -T4 -F {TARGET}
+
+  - id: web_probe
+    name: HTTP Technology Fingerprint
+    prompt: |
+      Based on the recon results, probe the web server.
+      Run: whatweb {TARGET} && curl -sI {TARGET}
+      Save full output to {OUTPUT_DIR}/web-probe.txt
+      Print ONLY: server, framework, interesting headers. Max 10 lines.
+    depends_on: [recon]
+
+  - id: dir_enum
+    name: Directory & File Discovery
+    prompt: |
+      Discover hidden directories and files on {TARGET}.
+      Run: gobuster dir -u {TARGET} -w /usr/share/wordlists/dirb/common.txt -t 20 -q --delay 500ms -o {OUTPUT_DIR}/gobuster.txt
+      Then print ONLY the interesting paths found (not 404s). Max 15 lines.
+      If gobuster finds /login, /admin, /flag, /api — highlight them.
+    depends_on: [recon]
+
+  - id: vulnerability_scan
+    name: Nuclei Vulnerability Scan
+    prompt: |
+      Run nuclei vulnerability scan on {TARGET}.
+      Run: nuclei -u {TARGET} -severity low,medium,high,critical -rl 15 -c 5 -timeout 15 -o {OUTPUT_DIR}/nuclei.txt
+      Print ONLY the findings (vulnerability name + severity). Max 15 lines.
+      Ignore info/low if there are medium+ findings.
+    depends_on: [recon]
+
+  - id: sqli_test
+    name: SQL Injection Test
+    prompt: |
+      Test {TARGET} for SQL injection.
+      If there's a login form or parameter-based URL, test with sqlmap:
+      sqlmap -u "{TARGET}" --batch --level=3 --risk=2 --dbs --output-dir={OUTPUT_DIR}/sqlmap
+      Print ONLY: was SQLi found? what databases/tables? any credentials? Max 10 lines.
+      If no injectable parameters found, just say "No SQLi found" and move on.
+    depends_on: [dir_enum]
+
+  - id: xss_test
+    name: XSS Test
+    prompt: |
+      Test {TARGET} for Cross-Site Scripting.
+      Run: dalfox url {TARGET} -o {OUTPUT_DIR}/xss.txt --silence --only-poc r
+      Print ONLY: any XSS found? parameter name? payload? Max 10 lines.
+      If nothing found, just say "No XSS found".
+    depends_on: [dir_enum]
+
+  - id: final_report
+    name: Generate Attack Report
+    prompt: |
+      You have completed all attack steps. Generate a final CTF report.
+
+      Read the summary files in {OUTPUT_DIR}/ and produce a structured report:
+      1. Target overview (ports, services, tech stack)
+      2. Vulnerabilities found (severity, evidence)
+      3. Attack path — how would you chain these to get the flag?
+      4. Recommended next steps
+
+      Save the report to {OUTPUT_DIR}/REPORT.md
+      Also print the full report as your response.
+    depends_on: [web_probe, dir_enum, vulnerability_scan, sqli_test, xss_test]
+    is_report: true
