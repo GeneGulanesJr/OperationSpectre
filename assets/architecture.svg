@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" width="960" height="620">
+  <style>
+    text { font-family: Helvetica Neue, Helvetica, Arial, sans-serif; }
+  </style>
+  <defs>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ea580c"/>
+    </marker>
+    <filter id="shadow" x="-2%" y="-2%" width="104%" height="104%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="620" fill="#ffffff" rx="0"/>
+
+  <!-- Title -->
+  <text x="480" y="32" text-anchor="middle" fill="#111827" font-size="18" font-weight="600">OperationSpectre — Architecture Overview</text>
+
+  <!-- ====== LAYER 1: Pi Agent ====== -->
+  <rect x="30" y="50" width="900" height="160" rx="12" fill="#f8fafc" stroke="#d1d5db" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="50" y="75" fill="#111827" font-size="14" font-weight="600">⚡ Pi (AI Agent)</text>
+
+  <!-- Skill cards -->
+  <rect x="60" y="92" width="165" height="50" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="142" y="115" text-anchor="middle" fill="#1d4ed8" font-size="12" font-weight="600">🔍 pentest-recon</text>
+  <text x="142" y="131" text-anchor="middle" fill="#6b7280" font-size="10">Full recon pipeline</text>
+
+  <rect x="245" y="92" width="165" height="50" rx="8" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+  <text x="327" y="115" text-anchor="middle" fill="#dc2626" font-size="12" font-weight="600">🛡️ web-app-audit</text>
+  <text x="327" y="131" text-anchor="middle" fill="#6b7280" font-size="10">OWASP, Burp, ZAP</text>
+
+  <rect x="430" y="92" width="165" height="50" rx="8" fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/>
+  <text x="512" y="115" text-anchor="middle" fill="#ea580c" font-size="12" font-weight="600">💥 exploit-dev</text>
+  <text x="512" y="131" text-anchor="middle" fill="#6b7280" font-size="10">pwncat, hydra, hashcat</text>
+
+  <rect x="615" y="92" width="165" height="50" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="697" y="115" text-anchor="middle" fill="#16a34a" font-size="12" font-weight="600">🕵️ passive-osint</text>
+  <text x="697" y="131" text-anchor="middle" fill="#6b7280" font-size="10">CT logs, Shodan, dorks</text>
+
+  <!-- More skills row -->
+  <rect x="60" y="152" width="110" height="36" rx="6" fill="#faf5ff" stroke="#e9d5ff" stroke-width="1"/>
+  <text x="115" y="174" text-anchor="middle" fill="#7c3aed" font-size="10" font-weight="500">nmap-playbook</text>
+
+  <rect x="180" y="152" width="110" height="36" rx="6" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1"/>
+  <text x="235" y="174" text-anchor="middle" fill="#0d9488" font-size="10" font-weight="500">wordpress-audit</text>
+
+  <rect x="300" y="152" width="110" height="36" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+  <text x="355" y="174" text-anchor="middle" fill="#dc2626" font-size="10" font-weight="500">secret-scanner</text>
+
+  <rect x="420" y="152" width="110" height="36" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="475" y="174" text-anchor="middle" fill="#2563eb" font-size="10" font-weight="500">container-audit</text>
+
+  <rect x="540" y="152" width="130" height="36" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/>
+  <text x="605" y="174" text-anchor="middle" fill="#ea580c" font-size="10" font-weight="500">parallel-pipeline</text>
+
+  <rect x="680" y="152" width="110" height="36" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="735" y="174" text-anchor="middle" fill="#16a34a" font-size="10" font-weight="500">report-generator</text>
+
+  <!-- Arrows from skills → sandbox -->
+  <line x1="340" y1="210" x2="340" y2="248" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <line x1="480" y1="210" x2="480" y2="248" stroke="#ea580c" stroke-width="2" marker-end="url(#arrow-orange)"/>
+  <line x1="620" y1="210" x2="620" y2="248" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+  <!-- Arrow labels -->
+  <rect x="274" y="222" width="50" height="18" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="299" y="236" text-anchor="middle" fill="#2563eb" font-size="9">Skills</text>
+  <rect x="555" y="222" width="72" height="18" rx="3" fill="#ffffff" opacity="0.95"/>
+  <text x="591" y="236" text-anchor="middle" fill="#ea580c" font-size="9">Commands</text>
+
+  <!-- ====== LAYER 2: Docker Sandbox ====== -->
+  <rect x="30" y="250" width="900" height="350" rx="12" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="50" y="278" fill="#111827" font-size="14" font-weight="600">🐳 OperationSpectre Docker Sandbox</text>
+  <text x="900" y="278" text-anchor="end" fill="#6b7280" font-size="11">Kali Linux + 50+ security tools</text>
+
+  <!-- Tool Category: Network & Recon -->
+  <rect x="60" y="295" width="260" height="150" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="80" y="316" fill="#1d4ed8" font-size="12" font-weight="600">🌐 Network &amp; Recon</text>
+  <rect x="75" y="326" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="127" y="344" text-anchor="middle" fill="#111827" font-size="10">nmap</text>
+  <rect x="188" y="326" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="240" y="344" text-anchor="middle" fill="#111827" font-size="10">nuclei</text>
+  <rect x="75" y="360" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="127" y="378" text-anchor="middle" fill="#111827" font-size="10">subfinder</text>
+  <rect x="188" y="360" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="240" y="378" text-anchor="middle" fill="#111827" font-size="10">httpx</text>
+  <rect x="75" y="394" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="127" y="412" text-anchor="middle" fill="#111827" font-size="10">naabu</text>
+  <rect x="188" y="394" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="240" y="412" text-anchor="middle" fill="#111827" font-size="10">whatweb</text>
+
+  <!-- Tool Category: Web App -->
+  <rect x="340" y="295" width="260" height="150" rx="8" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+  <text x="360" y="316" fill="#dc2626" font-size="12" font-weight="600">🕷️ Web Application</text>
+  <rect x="355" y="326" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="407" y="344" text-anchor="middle" fill="#111827" font-size="10">sqlmap</text>
+  <rect x="468" y="326" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="520" y="344" text-anchor="middle" fill="#111827" font-size="10">ffuf</text>
+  <rect x="355" y="360" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="407" y="378" text-anchor="middle" fill="#111827" font-size="10">dalfox</text>
+  <rect x="468" y="360" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="520" y="378" text-anchor="middle" fill="#111827" font-size="10">nikto</text>
+  <rect x="355" y="394" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="407" y="412" text-anchor="middle" fill="#111827" font-size="10">wpscan</text>
+  <rect x="468" y="394" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="520" y="412" text-anchor="middle" fill="#111827" font-size="10">gobuster</text>
+
+  <!-- Tool Category: Exploitation -->
+  <rect x="620" y="295" width="280" height="150" rx="8" fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/>
+  <text x="640" y="316" fill="#ea580c" font-size="12" font-weight="600">💥 Exploitation &amp; Cracking</text>
+  <rect x="635" y="326" width="115" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="692" y="344" text-anchor="middle" fill="#111827" font-size="10">pwncat-cs</text>
+  <rect x="758" y="326" width="115" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="815" y="344" text-anchor="middle" fill="#111827" font-size="10">hydra</text>
+  <rect x="635" y="360" width="115" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="692" y="378" text-anchor="middle" fill="#111827" font-size="10">john</text>
+  <rect x="758" y="360" width="115" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="815" y="378" text-anchor="middle" fill="#111827" font-size="10">hashcat</text>
+  <rect x="635" y="394" width="115" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="692" y="412" text-anchor="middle" fill="#111827" font-size="10">trivy</text>
+  <rect x="758" y="394" width="115" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="815" y="412" text-anchor="middle" fill="#111827" font-size="10">burpsuite</text>
+
+  <!-- Tool Category: Forensics & CTF -->
+  <rect x="60" y="460" width="400" height="120" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="80" y="482" fill="#16a34a" font-size="12" font-weight="600">🔬 Forensics &amp; CTF</text>
+  <rect x="75" y="492" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="127" y="510" text-anchor="middle" fill="#111827" font-size="10">pwntools</text>
+  <rect x="188" y="492" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="240" y="510" text-anchor="middle" fill="#111827" font-size="10">pycryptodome</text>
+  <rect x="301" y="492" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="353" y="510" text-anchor="middle" fill="#111827" font-size="10">volatility3</text>
+  <rect x="75" y="526" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="127" y="544" text-anchor="middle" fill="#111827" font-size="10">binwalk</text>
+  <rect x="188" y="526" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="240" y="544" text-anchor="middle" fill="#111827" font-size="10">steghide</text>
+  <rect x="301" y="526" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="353" y="544" text-anchor="middle" fill="#111827" font-size="10">RsaCtfTool</text>
+
+  <!-- Tool Category: Secrets & Infra -->
+  <rect x="480" y="460" width="420" height="120" rx="8" fill="#faf5ff" stroke="#e9d5ff" stroke-width="1"/>
+  <text x="500" y="482" fill="#7c3aed" font-size="12" font-weight="600">🔒 Secrets, Infra &amp; Automation</text>
+  <rect x="495" y="492" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="547" y="510" text-anchor="middle" fill="#111827" font-size="10">trufflehog</text>
+  <rect x="608" y="492" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="660" y="510" text-anchor="middle" fill="#111827" font-size="10">gitleaks</text>
+  <rect x="721" y="492" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="773" y="510" text-anchor="middle" fill="#111827" font-size="10">mitmproxy</text>
+  <rect x="495" y="526" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="547" y="544" text-anchor="middle" fill="#111827" font-size="10">chromium</text>
+  <rect x="608" y="526" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="660" y="544" text-anchor="middle" fill="#111827" font-size="10">gowitness</text>
+  <rect x="721" y="526" width="105" height="28" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="0.75"/>
+  <text x="773" y="544" text-anchor="middle" fill="#111827" font-size="10">seclists</text>
+
+  <!-- Legend -->
+  <g transform="translate(60, 598)">
+    <line x1="0" y1="6" x2="25" y2="6" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
+    <text x="30" y="10" fill="#6b7280" font-size="9">Skill invocation</text>
+    <line x1="120" y1="6" x2="145" y2="6" stroke="#ea580c" stroke-width="2" marker-end="url(#arrow-orange)"/>
+    <text x="150" y="10" fill="#6b7280" font-size="9">Tool commands</text>
+  </g>
+</svg>

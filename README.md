@@ -74,29 +74,9 @@ It is **not** an agent itself — it's the toolkit that powers agents.
 
 ## 🏗️ Architecture
 
-```
-┌─────────────────────────────────────────────────────┐
-│  pi (AI Agent)                                      │
-│  ┌──────────┐ ┌──────────┐ ┌───────────────────┐   │
-│  │ pentest  │ │  owasp   │ │   exploit-dev     │   │
-│  │  recon   │ │  audit   │ │   web-app-audit   │   │
-│  │  skill   │ │  skill   │ │      skill        │   │
-│  └────┬─────┘ └────┬─────┘ └────────┬──────────┘   │
-│       │             │                │               │
-│       └─────────────┼────────────────┘               │
-│                     ▼                                │
-│  ┌──────────────────────────────────────────────┐   │
-│  │  OperationSpectre Docker Sandbox             │   │
-│  │  Kali Linux + 50+ security tools             │   │
-│  │  ┌─────────┐ ┌─────────┐ ┌───────────────┐  │   │
-│  │  │ nmap    │ │ sqlmap  │ │  pwntools     │  │   │
-│  │  │ nuclei  │ │ ffuf    │ │  pycryptodome │  │   │
-│  │  │ subfinder│ │ hydra  │ │  hashcat      │  │   │
-│  │  │ httpx   │ │ burp    │ │  volatility3  │  │   │
-│  │  └─────────┘ └─────────┘ └───────────────┘  │   │
-│  └──────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────┘
-```
+![OperationSpectre Architecture](assets/architecture.png)
+
+> **Two-layer design:** Pi skills invoke commands that execute inside the hardened Docker sandbox with 50+ security tools.
 
 ## 📚 Advanced Usage
 
@@ -306,31 +286,9 @@ Everything else is **blocked**:
 
 ### How It Works
 
-```
-┌───────────────────────────────────────┐
-│  Docker Host                          │
-│                                       │
-│  ┌─────────────────────────────────┐  │
-│  │  Bridge: 172.22.0.0/16          │  │
-│  │                                 │  │
-│  │  ┌───────────────────────────┐  │  │
-│  │  │  opspectre container      │  │  │
-│  │  │                           │  │  │
-│  │  │  ✅ Internet (outbound)   │  │  │
-│  │  │  ✅ /workspace/output     │  │  │
-│  │  │  ✅ /tmp (tmpfs, 512m)    │  │  │
-│  │  │  🚫 Host network         │  │  │
-│  │  │  🚫 Host filesystem      │  │  │
-│  │  │  🚫 Host processes       │  │  │
-│  │  └───────────────────────────┘  │  │
-│  │           │                     │  │
-│  │           ▼ NAT                 │  │
-│  │      Internet access only       │  │
-│  └─────────────────────────────────┘  │
-│                                       │
-│  🚫 Container CANNOT reach here       │
-└───────────────────────────────────────┘
-```
+![Sandbox Security Model](assets/sandbox-security.png)
+
+> The container can only reach the internet (via NAT) and write to `/workspace/output`. All host access is blocked.
 
 ### Security Checklist
 

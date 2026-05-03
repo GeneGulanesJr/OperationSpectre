@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" width="960" height="600">
+  <style>
+    text { font-family: Helvetica Neue, Helvetica, Arial, sans-serif; }
+  </style>
+  <defs>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#16a34a"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#dc2626"/>
+    </marker>
+    <filter id="shadow" x="-2%" y="-2%" width="104%" height="104%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="600" fill="#ffffff" rx="0"/>
+
+  <!-- Title -->
+  <text x="480" y="32" text-anchor="middle" fill="#111827" font-size="18" font-weight="600">OperationSpectre — Sandbox Security Model</text>
+
+  <!-- ====== Docker Host (outer box) ====== -->
+  <rect x="30" y="50" width="900" height="530" rx="12" fill="#f9fafb" stroke="#9ca3af" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="50" y="74" fill="#6b7280" font-size="13" font-weight="500">Docker Host</text>
+
+  <!-- ====== Bridge Network ====== -->
+  <rect x="60" y="90" width="840" height="470" rx="10" fill="#f8fafc" stroke="#d1d5db" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="80" y="114" fill="#111827" font-size="13" font-weight="600">Bridge Network: 172.22.0.0/16</text>
+
+  <!-- ====== Container (inner box) ====== -->
+  <rect x="100" y="130" width="760" height="400" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+  <text x="120" y="154" fill="#1d4ed8" font-size="13" font-weight="600">🛡️ opspectre-sandbox container</text>
+
+  <!-- Allowed (green) section -->
+  <rect x="130" y="170" width="340" height="340" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+  <text x="150" y="192" fill="#16a34a" font-size="12" font-weight="600">✅ ALLOWED</text>
+
+  <rect x="160" y="205" width="280" height="44" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="300" y="225" text-anchor="middle" fill="#16a34a" font-size="11" font-weight="600">🌐 Internet (outbound)</text>
+  <text x="300" y="240" text-anchor="middle" fill="#6b7280" font-size="9">Scanning targets, downloading resources</text>
+
+  <rect x="160" y="259" width="280" height="44" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="300" y="279" text-anchor="middle" fill="#16a34a" font-size="11" font-weight="600">📁 /workspace/output</text>
+  <text x="300" y="294" text-anchor="middle" fill="#6b7280" font-size="9">Scan results &amp; reports (mounted, noexec)</text>
+
+  <rect x="160" y="313" width="280" height="44" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="300" y="333" text-anchor="middle" fill="#16a34a" font-size="11" font-weight="600">📁 /tmp (tmpfs, 512MB)</text>
+  <text x="300" y="348" text-anchor="middle" fill="#6b7280" font-size="9">Temporary files, no host mount</text>
+
+  <rect x="160" y="367" width="280" height="44" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="300" y="387" text-anchor="middle" fill="#16a34a" font-size="11" font-weight="600">🔧 50+ Security Tools</text>
+  <text x="300" y="402" text-anchor="middle" fill="#6b7280" font-size="9">nmap, sqlmap, nuclei, ffuf, hydra, hashcat...</text>
+
+  <rect x="160" y="421" width="280" height="44" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="300" y="441" text-anchor="middle" fill="#16a34a" font-size="11" font-weight="600">📋 OWASP Playbooks</text>
+  <text x="300" y="456" text-anchor="middle" fill="#6b7280" font-size="9">Automated security testing scripts</text>
+
+  <!-- Blocked (red) section -->
+  <rect x="500" y="170" width="340" height="340" rx="8" fill="#fef2f2" stroke="#fecaca" stroke-width="1.5"/>
+  <text x="520" y="192" fill="#dc2626" font-size="12" font-weight="600">🚫 BLOCKED</text>
+
+  <rect x="530" y="205" width="280" height="44" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="670" y="225" text-anchor="middle" fill="#dc2626" font-size="11" font-weight="600">🚫 Host Network</text>
+  <text x="670" y="240" text-anchor="middle" fill="#6b7280" font-size="9">Bridge network isolation (no host access)</text>
+
+  <rect x="530" y="259" width="280" height="44" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="670" y="279" text-anchor="middle" fill="#dc2626" font-size="11" font-weight="600">🚫 Host Filesystem</text>
+  <text x="670" y="294" text-anchor="middle" fill="#6b7280" font-size="9">No host directory mounts except output</text>
+
+  <rect x="530" y="313" width="280" height="44" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="670" y="333" text-anchor="middle" fill="#dc2626" font-size="11" font-weight="600">🚫 Host Processes</text>
+  <text x="670" y="348" text-anchor="middle" fill="#6b7280" font-size="9">SYS_PTRACE dropped, no process inspection</text>
+
+  <rect x="530" y="367" width="280" height="44" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="670" y="387" text-anchor="middle" fill="#dc2626" font-size="11" font-weight="600">🚫 Privilege Escalation</text>
+  <text x="670" y="402" text-anchor="middle" fill="#6b7280" font-size="9">no-new-privileges, cap_drop: ALL</text>
+
+  <rect x="530" y="421" width="280" height="44" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="670" y="441" text-anchor="middle" fill="#dc2626" font-size="11" font-weight="600">🚫 Resource Abuse</text>
+  <text x="670" y="456" text-anchor="middle" fill="#6b7280" font-size="9">pids_limit:512, mem:4g, cpus:2.0, read_only root</text>
+
+  <!-- Arrows -->
+  <line x1="300" y1="530" x2="300" y2="560" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="300" y="578" text-anchor="middle" fill="#16a34a" font-size="10" font-weight="500">NAT → Internet only</text>
+
+  <line x1="670" y1="510" x2="670" y2="545" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow-red)"/>
+  <text x="670" y="560" text-anchor="middle" fill="#dc2626" font-size="10" font-weight="500">❌ Cannot reach host</text>
+
+  <text x="900" y="570" text-anchor="end" fill="#9ca3af" font-size="10" font-style="italic">Host services &amp; filesystem remain protected</text>
+</svg>
