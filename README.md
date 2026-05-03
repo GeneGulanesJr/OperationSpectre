@@ -21,7 +21,7 @@ cd OperationSpectre
 ### Step 2: Build the Docker Sandbox (ONE-TIME)
 
 ```powershell
-docker build --no-cache -f containers/Dockerfile -t opspectre-full:latest .
+docker build --no-cache -f containers/Dockerfile -t opspectre-sandbox:latest .
 ```
 
 **This takes 10-20 minutes on first build.** The image is ~3GB with 50+ security tools pre-installed.
@@ -35,7 +35,7 @@ docker compose -f containers/docker-compose.yml up -d
 **The container runs in the background.** Verify it's running:
 
 ```powershell
-docker ps | grep opspectre-full
+docker ps | grep opspectre-sandbox
 ```
 
 ### Step 4: Run Pi (AUTO-DETECT)
@@ -133,7 +133,7 @@ The real power of OperationSpectre is its **pi skill library** — domain-specif
 
 | Skill | Purpose |
 |---|---|
-| `exploit-dev` | Active exploitation: Metasploit, crackmapexec, evil-winrm, hydra |
+| `exploit-dev` | Active exploitation: pwncat-cs, hydra, john, hashcat |
 | `secret-scanner` | Find leaked secrets: trufflehog, trivy, grep patterns |
 | `container-audit` | Container vulnerability scanning with trivy |
 
@@ -199,7 +199,7 @@ nmap, nuclei, subfinder, httpx, naabu, whatweb, theHarvester
 sqlmap, ffuf, dalfox, nikto, wpscan, wapiti, gobuster, dirsearch
 
 ### Exploitation
-Metasploit, crackmapexec, impacket, evil-winrm, hydra
+pwncat-cs, hydra, john, hashcat
 
 ### Forensics & CTF
 pwntools, pycryptodome, gmpy2, sympy, z3, RsaCtfTool, volatility3, binwalk, steghide, stegseek, zsteg
@@ -216,6 +216,18 @@ Burp Suite, OWASP ZAP, mitmproxy, chromium, gowitness
 ### Full tool reference
 See [`.pi/skills/sandbox-tools/SKILL.md`](.pi/skills/sandbox-tools/SKILL.md)
 
+### Tools Not Included in Current Build
+
+The following tools were dropped from the Debian-slim image (~800 MB):
+
+| Tool | Category | Reason Removed |
+|---|---|---|
+| **Metasploit** (msfconsole) | Exploitation framework | Heavy (~500 MB); use pwncat-cs + hydra instead |
+| **Amass** | Subdomain enumeration | Redundant with subfinder + passive OSINT playbook |
+| **Feroxbuster** | Directory brute-forcing | Redundant with ffuf + gobuster |
+| **Burp Suite** (headless) | Web proxy/scanner | CDN download may fail; manual install available at /opt/burpsuite/ |
+
+To add any of these back, edit `containers/Dockerfile` and rebuild.
 ---
 
 ## 📁 Project Structure
@@ -259,7 +271,7 @@ OperationSpectre/
 
 | Variable | Default | Description |
 |---|---|---|
-| `OPSPECTRE_IMAGE` | `opspectre-full:latest` | Docker image name |
+| `OPSPECTRE_IMAGE` | `opspectre-sandbox:latest` | Docker image name |
 | `OPSPECTRE_TIMEOUT` | `120` | Command timeout (seconds) |
 | `PIPELINE_CONCURRENCY` | `5` | Max parallel workers |
 | `PIPELINE_TIMEOUT` | `300` | Pipeline step timeout |
