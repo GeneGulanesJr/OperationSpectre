@@ -1,10 +1,10 @@
 # OperationSpectre
 
-> **AI tool kit for security operations built for [pi](https://github.com/badlogic/pi-mono).**  
-> A Kali-based Docker sandbox with 50+ pre-installed security tools, orchestration playbooks, and pi skill integration — designed for penetration testing, CTF competitions, and security assessments.
+> **AI tool kit for security operations built for [pi](https://github.com/badlogic/pi-mono).**
+> A Debian-based Docker sandbox (~800 MB) with 60+ pre-installed security tools, orchestration playbooks, and pi skill integration — designed for penetration testing, CTF competitions, and security assessments.
 
 ```
-pi (AI agent) ←→ OperationSpectre skills/playbooks ←→ Docker sandbox (Kali + tools)
+pi (AI agent) ←→ OperationSpectre skills/playbooks ←→ Docker sandbox (Debian-slim + tools)
 ```
 
 ## ⚡ Quick Start (First-Time Setup)
@@ -20,21 +20,25 @@ cd OperationSpectre
 
 ### Step 2: Build the Docker Sandbox (ONE-TIME)
 
-```powershell
-docker build --no-cache -f containers/Dockerfile -t opspectre-sandbox:latest .
+```bash
+# Recommended: use the build script (handles BuildKit caching)
+./scripts/build.sh
+
+# Or build manually
+docker build -f containers/Dockerfile -t opspectre-full:latest .
 ```
 
-**This takes 10-20 minutes on first build.** The image is ~3GB with 50+ security tools pre-installed.
+**This takes 6-10 minutes on first build.** The image is ~800 MB with 60+ security tools pre-installed.
 
 ### Step 3: Start the Container (EACH SESSION)
 
-```powershell
+```bash
 docker compose -f containers/docker-compose.yml up -d
 ```
 
 **The container runs in the background.** Verify it's running:
 
-```powershell
+```bash
 docker ps | grep opspectre-sandbox
 ```
 
@@ -46,7 +50,7 @@ pi
 
 **Pi will automatically:**
 - ✅ Detect the `.pi/skills/` directory in the project
-- ✅ Load all 14 security skills
+- ✅ Load all 18 security skills
 - ✅ Connect to the running sandbox
 
 **You're now ready!** Ask pi to:
@@ -56,7 +60,7 @@ pi
 
 ### Stopping the Sandbox
 
-```powershell
+```bash
 docker compose -f containers/docker-compose.yml down
 ```
 
@@ -66,9 +70,10 @@ docker compose -f containers/docker-compose.yml down
 
 OperationSpectre turns **pi** into a security operations workstation. It provides:
 
-- 🐳 **Docker sandbox** — Kali Linux container with 50+ security tools pre-installed
-- 🎯 **Pi skills** — Domain-specific instructions for recon, exploitation, web audits, and CTF
-- 📋 **Playbooks** — Automated OWASP Top 10, nmap, OSINT, and pentest workflows
+- 🐳 **Docker sandbox** — Debian Bookworm-slim container with 60+ security tools pre-installed
+- 🎯 **Pi skills** — 18 domain-specific skill definitions for recon, exploitation, web audits, CTF, and more
+- 📋 **Playbooks** — Automated OWASP Top 10, OSINT, CTF, and Burp Suite workflows
+- 🔄 **Pipelines** — YAML-defined scan pipelines with parallel execution support
 
 It is **not** an agent itself — it's the toolkit that powers agents.
 
@@ -76,7 +81,7 @@ It is **not** an agent itself — it's the toolkit that powers agents.
 
 ![OperationSpectre Architecture](assets/architecture.png)
 
-> **Two-layer design:** Pi skills invoke commands that execute inside the hardened Docker sandbox with 50+ security tools.
+> **Two-layer design:** Pi skills invoke commands that execute inside the hardened Docker sandbox with 60+ security tools.
 
 ## 📚 Advanced Usage
 
@@ -88,6 +93,35 @@ If you want to use the sandbox without pi:
 uv sync
 opspectre init
 opspectre run "nmap -sV 192.168.1.1"
+```
+
+### CLI Commands
+
+| Command | Subcommands | Description |
+|---|---|---|
+| `init` | — | Full setup: Docker check, pull image, start sandbox |
+| `sandbox` | `start`, `stop`, `status` | Manage sandbox container |
+| `shell` | `<command>` | Run shell command in sandbox |
+| `run` | `<command>` | Run command (auto-starts sandbox) |
+| `file` | `read`, `write`, `edit`, `list`, `search` | File operations in sandbox |
+| `code` | `python <code>`, `node <code>` | Execute code in sandbox |
+| `browser` | `navigate`, `snapshot`, `screenshot` | Browser automation |
+| `runs` | `list`, `show` | Manage run history |
+| `config` | `set`, `get` | Manage configuration |
+| `performance` | `show`, `stats`, `config`, `clear` | Performance analytics |
+
+### Makefile Targets
+
+```bash
+make install          # Install dependencies (no dev)
+make dev-install      # Install with dev dependencies
+make setup-dev        # Install + pre-commit hooks
+make format           # Auto-format code (ruff)
+make lint             # Lint code (ruff)
+make typecheck        # Type check (pyright)
+make check-all        # format + lint + typecheck
+make test             # Run tests (pytest)
+make pre-commit       # Run all pre-commit hooks
 ```
 
 ---
@@ -103,8 +137,8 @@ The real power of OperationSpectre is its **pi skill library** — domain-specif
 | Skill | Purpose |
 |---|---|
 | `pentest-recon` | Full recon pipeline: subfinder → httpx → nmap → nuclei → OSINT |
-| `owasp-security-suite` | Comprehensive OWASP Top 10 testing with automated playbooks |
-| `web-app-audit` | Full-stack web app security: Burp, ZAP, sqlmap, ffuf |
+| `opspectre-security-suite` | Consolidated OWASP Top 10 testing with automated playbooks |
+| `web-app-audit` | Full-stack web app security: Burp, sqlmap, ffuf, gospider |
 | `wordpress-audit` | WordPress-specific: wpscan, enumeration, plugin vulns |
 | `passive-osint` | Zero-footprint recon: CT logs, Wayback, Google dorks, Shodan |
 | `nmap-playbook` | Structured nmap scans: quick, deep, stealth, UDP |
@@ -113,15 +147,16 @@ The real power of OperationSpectre is its **pi skill library** — domain-specif
 
 | Skill | Purpose |
 |---|---|
-| `exploit-dev` | Active exploitation: pwncat-cs, hydra, john, hashcat |
-| `secret-scanner` | Find leaked secrets: trufflehog, trivy, grep patterns |
+| `exploit-dev` | Active exploitation: hydra, john, hashcat, medusa |
+| `secret-scanner` | Find leaked secrets: trufflehog, trivy, gitleaks |
 | `container-audit` | Container vulnerability scanning with trivy |
 
 ### CTF Competition
 
 | Skill | Purpose |
 |---|---|
-| `sandbox-tools` | Reference for all 50+ tools in the sandbox |
+| `ctf-skills` | Curated CTF technique library (web, forensics, crypto, stego) |
+| `sandbox-tools` | Reference for all 60+ tools in the sandbox |
 | `report-generator` | Generate structured pentest reports in markdown/PDF |
 
 ### Infrastructure
@@ -130,7 +165,15 @@ The real power of OperationSpectre is its **pi skill library** — domain-specif
 |---|---|
 | `docker-toolchain` | Build, test, and update the sandbox image |
 | `parallel-pipeline-executor` | Run independent scan steps concurrently (60-80% faster) |
+| `small-model-pipeline` | Lightweight pipeline runner for smaller models |
 | `opspectre-dev` | Develop and test OperationSpectre itself |
+
+### Code & Docs Retrieval
+
+| Skill | Purpose |
+|---|---|
+| `jcodemunch` | Structured code search and retrieval |
+| `jdocmunch` | Structured documentation retrieval |
 
 ---
 
@@ -153,6 +196,16 @@ owasp_a03 https://target.com/login    # Injection
 owasp_a10 https://target.com/fetch    # SSRF
 ```
 
+### Additional Playbooks
+
+| Playbook | Description |
+|---|---|
+| `osint-playbook.sh` | Passive reconnaissance (CT logs, Wayback, Google dorks, Shodan, GitHub) |
+| `ctf-playbook.sh` | CTF challenge workflows (web, crypto, forensics, stego, pwn, RE) |
+| `burpsuite-playbook.sh` | Burp Suite headless scanning operations |
+| `scan-helpers.sh` | Shared output directory utilities |
+| `rate-limit-helpers.sh` | WAF evasion and rate-limit-aware scanning defaults |
+
 ### Categories Covered
 
 | # | Category | What It Tests |
@@ -170,44 +223,81 @@ owasp_a10 https://target.com/fetch    # SSRF
 
 ---
 
+## 🔄 Pipelines
+
+YAML-defined scan pipelines with parallel execution support:
+
+| Pipeline | Steps | Description |
+|---|---|---|
+| `pentest.yaml` | 7 steps | Full pentest recon & vuln assessment |
+| `parallel_pentest.yaml` | 9 steps | Optimized pentest with 5 parallel execution phases |
+| `ctf-web.yaml` | 7 steps | CTF web challenge pipeline |
+| `ctf-crypto.yaml` | 4 steps | CTF crypto analysis pipeline |
+
+Run with the pipeline runner:
+
+```bash
+python scripts/pipeline_runner.py pipelines/pentest.yaml
+python scripts/parallel_pipeline_runner.py pipelines/parallel_pentest.yaml
+```
+
+---
+
 ## 🧰 Sandbox Tools
 
 ### Network & Recon
-nmap, nuclei, subfinder, httpx, naabu, whatweb, theHarvester
+nmap, masscan, nuclei, subfinder, httpx, naabu, whatweb, katana, gospider, gau, waybackurls, interactsh-client
 
 ### Web Application
-sqlmap, ffuf, dalfox, nikto, wpscan, wapiti, gobuster, dirsearch
+sqlmap, ffuf, dalfox, nikto, wpscan, wapiti, gobuster, arjun, wafw00f, webtech, dirsearch
 
 ### Exploitation
-pwncat-cs, hydra, john, hashcat
+hydra, john, hashcat, medusa, crunch, cewl, searchsploit (exploitdb)
 
 ### Forensics & CTF
-pwntools, pycryptodome, gmpy2, sympy, z3, RsaCtfTool, volatility3, binwalk, steghide, stegseek, zsteg
+pwntools, pycryptodome, gmpy2, sympy, z3-solver, RsaCtfTool, binwalk, steghide, stegseek, zsteg, exiftool, foremost, radare2
+
+### Reverse Engineering
+radare2, apktool, CFR (Java decompiler), gdb, checksec
+
+### Network Capture
+tshark, wireshark-common
 
 ### Password Cracking
-hashcat, john, wordlists (rockyou.txt, seclists)
+hashcat, john, hydra, medusa, crunch, cewl, wordlists (rockyou.txt, SecLists)
 
 ### Container & Secrets
-trivy, trufflehog, gitleaks
+trivy, trufflehog, gitleaks, semgrep, bandit
 
 ### Infrastructure
-Burp Suite, OWASP ZAP, mitmproxy, chromium, gowitness
+Burp Suite Community, Caido CLI, Obscura (headless browser), gowitness
+
+### Code Analysis
+semgrep, bandit, retire (npm), eslint, js-beautify, jshint
+
+### Reporting
+pandoc, texlive (LaTeX)
 
 ### Full tool reference
 See [`.pi/skills/sandbox-tools/SKILL.md`](.pi/skills/sandbox-tools/SKILL.md)
 
-### Tools Not Included in Current Build
+### Tools Not Included
 
-The following tools were dropped from the Debian-slim image (~800 MB):
+The Debian-slim build (~800 MB) drops these from the legacy Kali build (~3 GB):
 
-| Tool | Category | Reason Removed |
+| Tool | Category | Reason |
 |---|---|---|
-| **Metasploit** (msfconsole) | Exploitation framework | Heavy (~500 MB); use pwncat-cs + hydra instead |
+| **Metasploit** (msfconsole) | Exploitation framework | Heavy (~500 MB); use hydra + searchsploit instead |
 | **Amass** | Subdomain enumeration | Redundant with subfinder + passive OSINT playbook |
 | **Feroxbuster** | Directory brute-forcing | Redundant with ffuf + gobuster |
-| **Burp Suite** (headless) | Web proxy/scanner | CDN download may fail; manual install available at /opt/burpsuite/ |
+| **CrackMapExec** | AD/post-exploitation | Requires Kali metapackages |
+| **evil-winrm** | WinRM exploitation | Requires Kali metapackages |
+| **Responder** | LLMNR/NBT-NS poisoner | Requires Kali metapackages |
+| **aircrack-ng** | Wireless attacks | Requires Kali metapackages |
+| **Bloodhound / Ghidra** | AD/RE | Requires Kali metapackages |
 
-To add any of these back, edit `containers/Dockerfile` and rebuild.
+To add any of these back, use `containers/Dockerfile.base` (Kali-based) or edit `containers/Dockerfile` and rebuild.
+
 ---
 
 ## 📁 Project Structure
@@ -217,7 +307,7 @@ OperationSpectre/
 ├── .pi/
 │   └── skills/              # Pi skill definitions (auto-loaded by pi)
 │       ├── pentest-recon/
-│       ├── owasp-security-suite/
+│       ├── opspectre-security-suite/
 │       ├── web-app-audit/
 │       ├── exploit-dev/
 │       ├── passive-osint/
@@ -228,21 +318,40 @@ OperationSpectre/
 │       ├── sandbox-tools/
 │       ├── docker-toolchain/
 │       ├── parallel-pipeline-executor/
+│       ├── small-model-pipeline/
 │       ├── opspectre-dev/
-│       └── report-generator/
+│       ├── report-generator/
+│       ├── ctf-skills/
+│       ├── jcodemunch/
+│       ├── jdocmunch/
+│       └── SKILLS_INDEX.md
 ├── containers/
-│   ├── Dockerfile           # Sandbox image definition
-│   ├── Dockerfile.base      # Base Kali image
+│   ├── Dockerfile           # Debian-slim sandbox (primary)
+│   ├── Dockerfile.base      # Kali-based image (legacy/full)
 │   ├── docker-compose.yml   # Container orchestration
-│   └── docker-entrypoint.sh # Startup script (venv, DNS, tool server)
+│   ├── docker-entrypoint.sh # Startup script (venv, tool server)
+│   ├── owasp-top10-playbook.sh
+│   ├── osint-playbook.sh
+│   ├── ctf-playbook.sh
+│   ├── burpsuite-playbook.sh
+│   └── wrappers/            # Tool wrapper scripts
+├── pipelines/               # YAML scan pipeline definitions
+│   ├── pentest.yaml
+│   ├── parallel_pentest.yaml
+│   ├── ctf-web.yaml
+│   └── ctf-crypto.yaml
+├── scripts/                 # Build, pipeline runners & automation
+│   ├── build.sh
+│   ├── pipeline_runner.py
+│   └── parallel_pipeline_runner.py
+├── docs/                    # Documentation
+│   ├── getting-started/
+│   ├── playbooks/
+│   ├── reference/
+│   └── about/
 ├── output/                  # Scan results (mounted from sandbox)
-│   ├── reports/
-│   ├── scans/
-│   ├── loot/
-│   ├── exploits/
-│   └── owasp/
-├── scripts/                 # Pipeline runners & automation
-└── src/opspectre/           # Python source (CLI, sandbox)
+├── src/opspectre/           # Python source (CLI, sandbox, reporting)
+└── Makefile                 # Build, lint, test targets
 ```
 
 ---
@@ -251,13 +360,15 @@ OperationSpectre/
 
 | Variable | Default | Description |
 |---|---|---|
-| `OPSPECTRE_IMAGE` | `opspectre-sandbox:latest` | Docker image name |
-| `OPSPECTRE_TIMEOUT` | `120` | Command timeout (seconds) |
-| `PIPELINE_CONCURRENCY` | `5` | Max parallel workers |
-| `PIPELINE_TIMEOUT` | `300` | Pipeline step timeout |
+| `OPSPECTRE_IMAGE` | `opspectre-full:latest` | Docker image name |
+| `OPSPECTRE_TIMEOUT` | `120` | Command timeout in seconds (1-3600) |
+| `OPSPECTRE_OUTPUT_LIMIT` | `1048576` | Max command output in bytes (1KB-256MB) |
+| `TOOL_SERVER_PORT` | `48081` | Port for the sandbox tool server (container override: 9100) |
 | `TOOL_SERVER_TOKEN` | `changeme` | Auth token for the sandbox tool server |
-| `TOOL_SERVER_PORT` | `9100` | Port for the sandbox tool server |
 | `OPSPECTRE_SANDBOX_EXECUTION_TIMEOUT` | `120` | Sandbox command execution timeout (seconds) |
+| `OPSPECTRE_PERFORMANCE_LOGGING` | `true` | Enable performance monitoring |
+| `OPSPECTRE_METRICS_INTERVAL` | `60` | Metrics collection interval (10-3600s) |
+| `OPSPECTRE_SLOW_OPERATION_THRESHOLD` | `5000` | Threshold to flag slow operations (ms) |
 
 ---
 
