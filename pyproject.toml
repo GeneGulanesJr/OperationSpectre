@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "CLI toolbox for sandboxed tool execution"
 readme = { text = "CLI toolbox for sandboxed tool execution", content-type = "text/plain" }
 license = "Apache-2.0"
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 authors = [
   { name = "OPERATIONSPECTRE" },
 ]
