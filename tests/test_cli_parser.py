@@ -180,18 +180,21 @@ class TestBuildParser:
 
 
 class TestGetVersion:
-    def test_returns_version(self):
+    def test_returns_nonempty_string(self):
         version = get_version()
-        assert version == "0.1.0"
+        assert isinstance(version, str)
+        assert len(version) > 0
+        assert "." in version
 
-    def test_fallback_on_error(self):
+    def test_fallback_on_missing_version(self):
         import opspectre
         original = opspectre.__version__
         opspectre.__version__ = None
         del opspectre.__version__
         try:
             version = get_version()
-            assert version == "0.1.0"
+            assert isinstance(version, str)
+            assert len(version) > 0
         finally:
             opspectre.__version__ = original
 

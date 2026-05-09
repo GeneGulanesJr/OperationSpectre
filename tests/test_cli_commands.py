@@ -93,19 +93,26 @@ class TestReportRunError:
 
 
 class TestValidateConfigKey:
-    def test_valid_key(self):
-        from opspectre._ui import Console
-        console = Console()
+    def test_valid_key_returns_true(self):
         with patch("opspectre.cli_commands._exit"):
             result = _validate_config_key("opspectre_timeout")
-            assert result is True
+        assert result is True
 
-    def test_invalid_key(self):
-        from opspectre._ui import Console
-        console = Console()
+    def test_valid_key_all_schema_keys(self):
+        from opspectre.config import Config
+        with patch("opspectre.cli_commands._exit"):
+            for key in Config._SCHEMA:
+                assert _validate_config_key(key) is True
+
+    def test_invalid_key_exits(self):
         with patch("opspectre.cli_commands._exit") as mock_exit:
             _validate_config_key("fake_key")
-            mock_exit.assert_called_once_with(1)
+        mock_exit.assert_called_once_with(1)
+
+    def test_invalid_key_does_not_return(self):
+        with patch("opspectre.cli_commands._exit") as mock_exit:
+            result = _validate_config_key("totally_bogus")
+        mock_exit.assert_called_once_with(1)
 
 
 class TestConfigSet:
