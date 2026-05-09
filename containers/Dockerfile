@@ -294,7 +294,6 @@ COPY containers/owasp-top10-playbook.sh /opt/playbooks/owasp-top10-playbook.sh
 COPY containers/osint-playbook.sh /opt/playbooks/osint-playbook.sh
 COPY containers/rate-limit-helpers.sh /opt/playbooks/rate-limit-helpers.sh
 COPY containers/ctf-playbook.sh /opt/playbooks/ctf-playbook.sh
-COPY containers/compliance-playbook.sh /opt/playbooks/compliance-playbook.sh
 RUN chmod +x /opt/playbooks/*.sh /usr/local/bin/burpsuite-agent && \
     for f in /opt/playbooks/*.sh; do \
         echo "source $f" >> /etc/bash.bashrc; \

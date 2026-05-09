@@ -17,10 +17,6 @@ echo "Creating workspace directories..."
 mkdir -p /workspace/output/{loot,sessions,logs,scans,exploits,reports}
 chmod -R a+rw /workspace/output 2>/dev/null || true
 
-echo "Starting PostgreSQL for Metasploit..."
-service postgresql start
-sleep 2
-
 echo "Starting tool server..."
 cd /opt/opspectre/tools
 export PYTHONPATH="/opt/opspectre/tools:/opt/ctf-python-venv/lib/python3.13/site-packages:$PYTHONPATH"

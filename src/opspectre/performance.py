@@ -70,8 +70,6 @@ class PerformanceLogger:
                 timestamp=datetime.now(),
                 additional_data=kwargs
             )
-            with self._lock:
-                self.metrics.append(metric)
             self._log_metric(metric)
 
     def _get_slow_threshold(self) -> float:
@@ -104,8 +102,8 @@ class PerformanceLogger:
                 f"{metric.additional_data}"
             )
 
-        # Auto-prune if metrics list exceeds cap — drop oldest entries
         with self._lock:
+            self.metrics.append(metric)
             if len(self.metrics) > self.MAX_METRICS:
                 self.metrics = self.metrics[-(self.MAX_METRICS // 2):]
 

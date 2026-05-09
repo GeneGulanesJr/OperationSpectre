@@ -3,7 +3,8 @@
 import shlex
 from typing import Any
 
-from opspectre.sandbox.docker_runtime import DockerRuntime, SandboxError
+from opspectre.core._runtime import get_runtime
+from opspectre.sandbox.docker_runtime import SandboxError
 
 
 def code_run(console: Any, lang: str, target: str) -> None:
@@ -12,7 +13,7 @@ def code_run(console: Any, lang: str, target: str) -> None:
 
     with performance_logger.measure("code_run", lang=lang, target=target[:50] + "..."):
         try:
-            runtime = DockerRuntime()
+            runtime = get_runtime()
             safe_target = shlex.quote(target)
 
             if lang == "python":

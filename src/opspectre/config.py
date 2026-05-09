@@ -9,14 +9,6 @@ class ConfigError(Exception):
     """Raised when a config value fails validation."""
 
 
-# Performance monitoring is enabled by default for intentional operation tracking
-DEFAULT_CONFIG = {
-    "opspectre_performance_logging": "true",
-    "opspectre_slow_operation_threshold": 5000,  # 5 seconds
-    "opspectre_metrics_interval": 60,  # 60 seconds
-}
-
-
 class Config:
     """Configuration Manager for OPERATIONSPECTRE.
 

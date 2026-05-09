@@ -44,7 +44,7 @@ class RunManager:
             return None
 
         for run_dir in self.base_dir.iterdir():
-            if name in run_dir.name:
+            if run_dir.name == name:
                 summary_file = run_dir / "summary.json"
                 if summary_file.exists():
                     try:

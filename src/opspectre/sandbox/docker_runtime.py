@@ -216,6 +216,7 @@ class DockerRuntime:
         self, max_retries: int = HEALTH_CHECK_RETRIES, timeout: int = HEALTH_CHECK_TIMEOUT
     ) -> None:
         """Poll the tool server health endpoint until it reports healthy."""
+        httpx_mod = _require_httpx()
         host = self._resolve_docker_host()
         health_url = f"http://{host}:{self._tool_server_port}/health"
 
@@ -223,16 +224,16 @@ class DockerRuntime:
 
         for attempt in range(max_retries):
             try:
-                with _require_httpx().Client(trust_env=False, timeout=timeout) as client:
+                with httpx_mod.Client(trust_env=False, timeout=timeout) as client:
                     response = client.get(health_url)
                     if response.status_code == 200:
                         data = response.json()
                         if data.get("status") == "healthy":
                             return
             except (
-                _require_httpx().ConnectError,
-                _require_httpx().TimeoutException,
-                _require_httpx().RequestError,
+                httpx_mod.ConnectError,
+                httpx_mod.TimeoutException,
+                httpx_mod.RequestError,
             ) as e:
                 _log.debug("Tool server health check attempt %d failed: %s", attempt + 1, e)
 
@@ -274,7 +275,7 @@ class DockerRuntime:
             name=container_name,
             hostname=container_name,
             ports={f"{CONTAINER_TOOL_SERVER_PORT}/tcp": self._tool_server_port},
-            cap_add=["NET_ADMIN", "NET_RAW"],
+            cap_add=["NET_RAW"],
             labels={"opspectre-run-id": run_id},
             environment={
                 "PYTHONUNBUFFERED": "1",

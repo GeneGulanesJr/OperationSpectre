@@ -9,7 +9,8 @@ execution and returns structured dicts.
 import json as _json
 from typing import Any
 
-from opspectre.sandbox.docker_runtime import DockerRuntime, SandboxError
+from opspectre.core._runtime import get_runtime
+from opspectre.sandbox.docker_runtime import SandboxError
 
 
 def browser_navigate(console: Any, url: str) -> None:
@@ -18,7 +19,7 @@ def browser_navigate(console: Any, url: str) -> None:
 
     with performance_logger.measure("browser_navigate", url=url):
         try:
-            runtime = DockerRuntime()
+            runtime = get_runtime()
             safe_url = _json.dumps(url)
             install_cmd = (
                 'python3 -c "import subprocess; '

@@ -12,6 +12,7 @@ Runs inside the Docker sandbox container. Provides endpoints for:
 
 import argparse
 import asyncio
+import hmac
 import logging
 import os
 from pathlib import Path
@@ -82,7 +83,7 @@ async def auth_middleware(request: Request, call_next: Any) -> Any:
         )
 
     token = auth_header.removeprefix("Bearer ")
-    if token != EXPECTED_TOKEN:
+    if not hmac.compare_digest(token, EXPECTED_TOKEN):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid authentication token",

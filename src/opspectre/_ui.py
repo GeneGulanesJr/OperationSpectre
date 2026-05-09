@@ -49,4 +49,3 @@ _output_mode = OutputMode()
 def _exit(code: int = 1) -> None:
     """Exit the process. Returns without exiting when sys.exit is mocked in tests."""
     sys.exit(code)
-    return

@@ -9,14 +9,11 @@ from opspectre.core._runtime import get_runtime
 from opspectre.sandbox.docker_runtime import SandboxError
 
 
-def _runtime():
-    return get_runtime()
-
 
 def read_file(path: str) -> dict[str, Any]:
     """Read a file from the sandbox."""
     try:
-        result = _runtime().file_read(path)
+        result = get_runtime().file_read(path)
         if result.get("success"):
             return {
                 "success": True,
@@ -31,7 +28,7 @@ def read_file(path: str) -> dict[str, Any]:
 def write_file(path: str, content: str) -> dict[str, Any]:
     """Write content to a file in the sandbox."""
     try:
-        result = _runtime().file_write(path, content)
+        result = get_runtime().file_write(path, content)
         if result.get("success"):
             return {
                 "success": True,
@@ -46,7 +43,7 @@ def write_file(path: str, content: str) -> dict[str, Any]:
 def edit_file(path: str, old_text: str, new_text: str) -> dict[str, Any]:
     """Find and replace in a file."""
     try:
-        result = _runtime().file_edit(path, old_text, new_text)
+        result = get_runtime().file_edit(path, old_text, new_text)
         if result.get("success"):
             return {"success": True, "data": {"path": path}, "error": None}
         return {"success": False, "data": {}, "error": result.get("error", "Edit failed")}
@@ -57,7 +54,7 @@ def edit_file(path: str, old_text: str, new_text: str) -> dict[str, Any]:
 def list_directory(path: str = "/workspace") -> dict[str, Any]:
     """List directory contents."""
     try:
-        result = _runtime().file_list(path)
+        result = get_runtime().file_list(path)
         if result.get("success"):
             return {
                 "success": True,
@@ -78,7 +75,7 @@ def search_files(pattern: str, path: str, recursive: bool = True) -> dict[str, A
         recursive: Search recursively.
     """
     try:
-        result = _runtime().file_search(pattern, path)
+        result = get_runtime().file_search(pattern, path)
         if result.get("success"):
             return {
                 "success": True,
